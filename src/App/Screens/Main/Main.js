@@ -1,13 +1,36 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { SideNavComponent } from '../../Components';
+import { AppErrorBoundary } from '../../Error';
+import { fetchUser } from '../../Services/actions';
+const mapStateToProps = (store) => ({
+	currentUser: store.userState.currentUser,
+});
+const mapDispatchProps = (dispatch) =>
+	bindActionCreators({ fetchUser }, dispatch);
 
-export class Main extends Component {
+class Main extends Component {
+	componentDidMount() {
+		this.props.fetchUser();
+	}
 	render() {
+		const { currentUser } = this.props;
+		console.log(currentUser);
 		return (
-			<div>
-				<h1>Main Screen</h1>
-			</div>
+			<>
+				<AppErrorBoundary>
+					<SideNavComponent
+						userName={currentUser.userName}
+						lastName={currentUser.lastName}
+						firstName={currentUser.firstName}
+						email={currentUser.email}
+						password={currentUser.password}
+					/>
+				</AppErrorBoundary>
+			</>
 		);
 	}
 }
 
-export default Main;
+export default connect(mapStateToProps, mapDispatchProps)(Main);

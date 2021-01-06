@@ -3,7 +3,7 @@ import { LockOutlined } from '@material-ui/icons';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { firebaseAuth, firebaseFirestore } from '../../../../imports';
-
+import { AppErrorBoundary } from '../../../Error';
 class Signup extends Component {
 	constructor(props) {
 		super(props);
@@ -47,6 +47,8 @@ class Signup extends Component {
 								email: '',
 								password: '',
 								confirmPassword: '',
+								downloadURL:
+									'https://firebasestorage.googleapis.com/v0/b/materialuitodo.appspot.com/o/users%2FDefaultMaterialUiToDoAvatar.jpg?alt=media&token=1bbd3f0f-77b4-4aab-aff7-d4b46edce365',
 							});
 							if (history) history.push('/');
 						})
@@ -65,119 +67,123 @@ class Signup extends Component {
 	};
 	render() {
 		return (
-			<Grid
-				style={{
-					display: 'flex',
-					height: '90vh',
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'center',
-					textAlign: 'center',
-				}}
-			>
-				<h1>Signup</h1>
-				<LockOutlined />
+			<AppErrorBoundary>
 				<Grid
 					style={{
-						flexDirection: 'row',
-					}}
-				>
-					<TextField
-						label="First Name"
-						required
-						variant="outlined"
-						type="text"
-						style={{
-							margin: '15px',
-						}}
-						value={this.state.firstName}
-						onChange={(e) => this.setState({ firstName: e.target.value })}
-					/>
-					<TextField
-						label="Last Name"
-						required
-						variant="outlined"
-						type="text"
-						style={{
-							margin: '15px',
-						}}
-						value={this.state.lastName}
-						onChange={(e) => this.setState({ lastName: e.target.value })}
-					/>
-				</Grid>
-				<Grid
-					style={{
+						display: 'flex',
+						height: '90vh',
 						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+						textAlign: 'center',
 					}}
 				>
-					<TextField
-						label="User Name"
-						required
-						variant="outlined"
-						type="text"
+					<h1>Signup</h1>
+					<LockOutlined />
+					<Grid
+						style={{
+							flexDirection: 'row',
+						}}
+					>
+						<TextField
+							label="First Name"
+							required
+							variant="outlined"
+							type="text"
+							style={{
+								margin: '15px',
+							}}
+							value={this.state.firstName}
+							onChange={(e) => this.setState({ firstName: e.target.value })}
+						/>
+						<TextField
+							label="Last Name"
+							required
+							variant="outlined"
+							type="text"
+							style={{
+								margin: '15px',
+							}}
+							value={this.state.lastName}
+							onChange={(e) => this.setState({ lastName: e.target.value })}
+						/>
+					</Grid>
+					<Grid
+						style={{
+							flexDirection: 'column',
+						}}
+					>
+						<TextField
+							label="User Name"
+							required
+							variant="outlined"
+							type="text"
+							style={{
+								margin: '15px',
+							}}
+							value={this.state.userName}
+							onChange={(e) =>
+								this.setState({ userName: e.target.value.replace(' ', '_') })
+							}
+						/>
+						<TextField
+							label="Email"
+							required
+							variant="outlined"
+							type="email"
+							style={{
+								margin: '15px',
+							}}
+							value={this.state.email}
+							onChange={(e) => this.setState({ email: e.target.value })}
+						/>
+					</Grid>
+					<Grid
+						style={{
+							flexDirection: 'row',
+						}}
+					>
+						<TextField
+							style={{
+								margin: '15px',
+							}}
+							label="Password"
+							required
+							variant="outlined"
+							type="password"
+							value={this.state.password}
+							onChange={(e) => this.setState({ password: e.target.value })}
+						/>
+						<TextField
+							style={{
+								margin: '15px',
+							}}
+							label="Confirm Password"
+							required
+							variant="outlined"
+							type="password"
+							value={this.state.confirmPassword}
+							onChange={(e) =>
+								this.setState({ confirmPassword: e.target.value })
+							}
+						/>
+					</Grid>
+					<Button
 						style={{
 							margin: '15px',
 						}}
-						value={this.state.userName}
-						onChange={(e) =>
-							this.setState({ userName: e.target.value.replace(' ', '_') })
-						}
-					/>
-					<TextField
-						label="Email"
-						required
-						variant="outlined"
-						type="email"
-						style={{
-							margin: '15px',
-						}}
-						value={this.state.email}
-						onChange={(e) => this.setState({ email: e.target.value })}
-					/>
+						focusRipple
+						variant="contained"
+						color="primary"
+						onClick={this.onSignup}
+					>
+						Signup
+					</Button>
+					<Button component={Link} to="/login">
+						Already Have An Account ? Login
+					</Button>
 				</Grid>
-				<Grid
-					style={{
-						flexDirection: 'row',
-					}}
-				>
-					<TextField
-						style={{
-							margin: '15px',
-						}}
-						label="Password"
-						required
-						variant="outlined"
-						type="password"
-						value={this.state.password}
-						onChange={(e) => this.setState({ password: e.target.value })}
-					/>
-					<TextField
-						style={{
-							margin: '15px',
-						}}
-						label="Confirm Password"
-						required
-						variant="outlined"
-						type="password"
-						value={this.state.confirmPassword}
-						onChange={(e) => this.setState({ confirmPassword: e.target.value })}
-					/>
-				</Grid>
-				<Button
-					style={{
-						margin: '15px',
-					}}
-					focusRipple
-					variant="contained"
-					color="primary"
-					onClick={this.onSignup}
-				>
-					Signup
-				</Button>
-				<Button component={Link} to="/login">
-					Already Have An Account ? Login
-				</Button>
-			</Grid>
+			</AppErrorBoundary>
 		);
 	}
 }

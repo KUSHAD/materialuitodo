@@ -1,9 +1,12 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { firebaseAuth } from '../imports';
+import { AppErrorBoundary } from './Error';
 import { LoginScreen, SignupScreen } from './Screens/Auth';
-import { MainScreen, ProfileScreen } from './Screens/Main';
+import { MainScreen } from './Screens/Main';
+import { store } from './Services/store';
 
 class App extends Component {
 	constructor(props) {
@@ -31,34 +34,40 @@ class App extends Component {
 	render() {
 		if (!this.state.loaded) {
 			return (
-				<div
-					style={{
-						display: 'flex',
-						height: '100vh',
-						justifyContent: 'center',
-						alignItems: 'center',
-					}}
-				>
-					<CircularProgress size="20vh" color="primary" />
-				</div>
+				<AppErrorBoundary>
+					<div
+						style={{
+							display: 'flex',
+							height: '100vh',
+							justifyContent: 'center',
+							alignItems: 'center',
+						}}
+					>
+						<CircularProgress size="20vh" color="primary" />
+					</div>
+				</AppErrorBoundary>
 			);
 		}
 		if (!this.state.loggedIn) {
 			return (
-				<BrowserRouter>
-					<Route path="/signup" exact component={SignupScreen} />
-					<Route path="/login" exact component={LoginScreen} />
-					<Route path="/" render={() => <Redirect to="/signup" />} />
-					<Redirect to="signup" />
-				</BrowserRouter>
+				<AppErrorBoundary>
+					<BrowserRouter>
+						<Route path="/signup" exact component={SignupScreen} />
+						<Route path="/login" exact component={LoginScreen} />
+						<Route path="/" render={() => <Redirect to="/signup" />} />
+						<Redirect to="signup" />
+					</BrowserRouter>
+				</AppErrorBoundary>
 			);
 		}
 		return (
-			<BrowserRouter>
-				<Route path="/" exact component={MainScreen} />
-				<Route path="/profile" exact component={ProfileScreen} />
-				<Redirect to="/" />
-			</BrowserRouter>
+			<AppErrorBoundary>
+				<Provider store={store}>
+					<BrowserRouter>
+						<Route path="/" component={MainScreen} />
+					</BrowserRouter>
+				</Provider>
+			</AppErrorBoundary>
 		);
 	}
 }
