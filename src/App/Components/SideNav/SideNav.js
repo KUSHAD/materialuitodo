@@ -67,6 +67,9 @@ function SideNav(props) {
 	const [userName, setUserName] = useState('');
 	const [password, setPassword] = useState('');
 	const [profileImage, setProfileImage] = useState('');
+	const [zipCode, setZipCode] = useState('');
+	const [country, setCountry] = useState('');
+	const [phoneNumber, setPhoneNumber] = useState('');
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
@@ -92,6 +95,9 @@ function SideNav(props) {
 					setEmail(userData.email);
 					setUserName(userData.userName);
 					setProfileImage(userData.downloadURL);
+					setPhoneNumber(userData.phoneNumber);
+					setCountry(userData.country);
+					setZipCode(userData.zipCode);
 				} else {
 					console.log('User Does Not Exist');
 				}
@@ -203,6 +209,10 @@ function SideNav(props) {
 									firstName={firstName}
 									lastName={lastName}
 									userName={userName}
+									zipCode={zipCode}
+									country={country}
+									phoneNumber={phoneNumber}
+									imageURL={profileImage}
 								/>
 							)}
 						/>

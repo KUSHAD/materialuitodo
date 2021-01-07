@@ -15,6 +15,9 @@ class Signup extends Component {
 			email: '',
 			password: '',
 			confirmPassword: '',
+			country: '',
+			zipCode: '',
+			phoneNumber: '',
 		};
 		this.onSignup = this.onSignup.bind(this);
 	}
@@ -37,8 +40,10 @@ class Signup extends Component {
 							firstName: this.state.firstName.trim(),
 							lastName: this.state.lastName.trim(),
 							fullName: fullName.trim(),
-							downloadURL:
-								'https://firebasestorage.googleapis.com/v0/b/materialuitodo.appspot.com/o/users%2FDefaultMaterialUiToDoAvatar.jpg?alt=media&token=1bbd3f0f-77b4-4aab-aff7-d4b46edce365',
+							downloadURL: `https://avatars.dicebear.com/api/identicon/${this.state.email}.svg`,
+							zipCode: this.state.zipCode,
+							phoneNumber: this.state.phoneNumber,
+							country: this.state.country,
 						})
 						.then(() => {
 							console.log('Success');
@@ -49,6 +54,9 @@ class Signup extends Component {
 								email: '',
 								password: '',
 								confirmPassword: '',
+								country: '',
+								zipCode: '',
+								phoneNumber: '',
 							});
 							if (history) history.push('/');
 						})
@@ -71,7 +79,7 @@ class Signup extends Component {
 				<Grid
 					style={{
 						display: 'flex',
-						height: '90vh',
+						flexGrow: 1,
 						flexDirection: 'column',
 						justifyContent: 'center',
 						alignItems: 'center',
@@ -108,36 +116,71 @@ class Signup extends Component {
 							onChange={(e) => this.setState({ lastName: e.target.value })}
 						/>
 					</Grid>
+
+					<TextField
+						label="User Name"
+						required
+						variant="outlined"
+						type="text"
+						style={{
+							margin: '15px',
+						}}
+						value={this.state.userName}
+						onChange={(e) =>
+							this.setState({ userName: e.target.value.replace(' ', '_') })
+						}
+					/>
 					<Grid
 						style={{
-							flexDirection: 'column',
+							flexDirection: 'row',
 						}}
 					>
 						<TextField
-							label="User Name"
+							label="Country"
 							required
+							style={{
+								margin: '15px',
+							}}
 							variant="outlined"
 							type="text"
-							style={{
-								margin: '15px',
-							}}
-							value={this.state.userName}
-							onChange={(e) =>
-								this.setState({ userName: e.target.value.replace(' ', '_') })
-							}
+							onChange={(e) => this.setState({ country: e.target.value })}
 						/>
 						<TextField
-							label="Email"
+							label="Zip Code"
 							required
-							variant="outlined"
-							type="email"
 							style={{
 								margin: '15px',
 							}}
-							value={this.state.email}
-							onChange={(e) => this.setState({ email: e.target.value })}
+							variant="outlined"
+							type="text"
+							onChange={(e) => this.setState({ zipCode: e.target.value })}
 						/>
 					</Grid>
+					<TextField
+						label="Phone Number"
+						required
+						style={{
+							margin: '15px',
+						}}
+						variant="outlined"
+						type="tel"
+						onChange={(e) =>
+							this.setState({
+								phoneNumber: e.target.value.trim().replace(' ', ''),
+							})
+						}
+					/>
+					<TextField
+						label="Email"
+						required
+						variant="outlined"
+						type="email"
+						style={{
+							margin: '15px',
+						}}
+						value={this.state.email}
+						onChange={(e) => this.setState({ email: e.target.value })}
+					/>
 					<Grid
 						style={{
 							flexDirection: 'row',
@@ -153,6 +196,7 @@ class Signup extends Component {
 							type="password"
 							value={this.state.password}
 							onChange={(e) => this.setState({ password: e.target.value })}
+							onPasteCapture={(e) => e.preventDefault()}
 						/>
 						<TextField
 							style={{
@@ -166,6 +210,7 @@ class Signup extends Component {
 							onChange={(e) =>
 								this.setState({ confirmPassword: e.target.value })
 							}
+							onPasteCapture={(e) => e.preventDefault()}
 						/>
 					</Grid>
 					<Button

@@ -67,6 +67,7 @@ class Login extends Component {
 						type="password"
 						value={this.state.password}
 						onChange={(e) => this.setState({ password: e.target.value })}
+						onPasteCapture={(e) => e.preventDefault()}
 					/>
 					<Button
 						onClick={this.onLogin}
