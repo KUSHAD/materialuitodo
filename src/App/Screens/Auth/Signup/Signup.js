@@ -37,6 +37,8 @@ class Signup extends Component {
 							firstName: this.state.firstName.trim(),
 							lastName: this.state.lastName.trim(),
 							fullName: fullName.trim(),
+							downloadURL:
+								'https://firebasestorage.googleapis.com/v0/b/materialuitodo.appspot.com/o/users%2FDefaultMaterialUiToDoAvatar.jpg?alt=media&token=1bbd3f0f-77b4-4aab-aff7-d4b46edce365',
 						})
 						.then(() => {
 							console.log('Success');
@@ -47,8 +49,6 @@ class Signup extends Component {
 								email: '',
 								password: '',
 								confirmPassword: '',
-								downloadURL:
-									'https://firebasestorage.googleapis.com/v0/b/materialuitodo.appspot.com/o/users%2FDefaultMaterialUiToDoAvatar.jpg?alt=media&token=1bbd3f0f-77b4-4aab-aff7-d4b46edce365',
 							});
 							if (history) history.push('/');
 						})

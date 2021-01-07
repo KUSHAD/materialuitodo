@@ -1,12 +1,10 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { firebaseAuth } from '../imports';
 import { AppErrorBoundary } from './Error';
 import { LoginScreen, SignupScreen } from './Screens/Auth';
 import { MainScreen } from './Screens/Main';
-import { store } from './Services/store';
 
 class App extends Component {
 	constructor(props) {
@@ -55,18 +53,16 @@ class App extends Component {
 						<Route path="/signup" exact component={SignupScreen} />
 						<Route path="/login" exact component={LoginScreen} />
 						<Route path="/" render={() => <Redirect to="/signup" />} />
-						<Redirect to="signup" />
+						<Redirect to="/signup" />
 					</BrowserRouter>
 				</AppErrorBoundary>
 			);
 		}
 		return (
 			<AppErrorBoundary>
-				<Provider store={store}>
-					<BrowserRouter>
-						<Route path="/" component={MainScreen} />
-					</BrowserRouter>
-				</Provider>
+				<BrowserRouter>
+					<Route path="/" component={MainScreen} />
+				</BrowserRouter>
 			</AppErrorBoundary>
 		);
 	}

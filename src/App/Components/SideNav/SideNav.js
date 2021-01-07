@@ -1,5 +1,7 @@
 import {
 	AppBar,
+	Avatar,
+	Button,
 	CssBaseline,
 	Divider,
 	Drawer,
@@ -7,17 +9,16 @@ import {
 	IconButton,
 	List,
 	ListItem,
-	ListItemIcon,
-	ListItemText,
+	ListItemAvatar,
 	Toolbar,
 	Typography,
 } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MailIcon from '@material-ui/icons/Mail';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { firebaseAuth, firebaseFirestore } from '../../../imports';
 import { AppErrorBoundary } from '../../Error';
 import { ProfileScreen, TodoScreen } from '../../Screens/Main';
 const drawerWidth = 240;
@@ -56,40 +57,82 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SideNav(props) {
-	const { window, userName, lastName, firstName, email, password } = props;
+	const { window } = props;
 	const classes = useStyles();
 	const theme = useTheme();
-	const [mobileOpen, setMobileOpen] = React.useState(false);
-
+	const [mobileOpen, setMobileOpen] = useState(false);
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [email, setEmail] = useState('');
+	const [userName, setUserName] = useState('');
+	const [password, setPassword] = useState('');
+	const [profileImage, setProfileImage] = useState('');
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
+
+	const onSignOut = () => {
+		firebaseAuth
+			.signOut()
+			.then(() => console.log('success'))
+			.catch((err) => console.log('error', err));
+	};
+
+	useEffect(() => {
+		firebaseFirestore
+			.collection('users')
+			.doc(firebaseAuth.currentUser.uid)
+			.get()
+			.then((user) => {
+				if (user.exists) {
+					let userData = user.data();
+					setFirstName(userData.firstName);
+					setLastName(userData.lastName);
+					setPassword(userData.password);
+					setEmail(userData.email);
+					setUserName(userData.userName);
+					setProfileImage(userData.downloadURL);
+				} else {
+					console.log('User Does Not Exist');
+				}
+			});
+	}, []);
 
 	const drawer = (
 		<div>
 			<AppErrorBoundary>
 				<div className={classes.toolbar} />
-				<Divider />
 				<List>
-					{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
+					<ListItem>
+						<ListItemAvatar>
+							<Avatar
+								style={{
+									height: '200px',
+									width: '200px',
+								}}
+								src={profileImage}
+								alt="Profile Image"
+							/>
+						</ListItemAvatar>
+					</ListItem>
 				</List>
 				<Divider />
 				<List>
-					{['All mail', 'Trash', 'Spam'].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
+					<ListItem>
+						<Button href="/" fullWidth>
+							Todos
+						</Button>
+					</ListItem>
+					<ListItem>
+						<Button href="/profile" fullWidth>
+							Profile
+						</Button>
+					</ListItem>
+					<ListItem>
+						<Button fullWidth onClick={onSignOut}>
+							<ExitToAppIcon /> Logout
+						</Button>
+					</ListItem>
 				</List>
 			</AppErrorBoundary>
 		</div>
@@ -153,18 +196,17 @@ function SideNav(props) {
 					<BrowserRouter>
 						<Route
 							path="/profile"
-							exact
 							component={() => (
 								<ProfileScreen
-									userName={userName}
-									lastName={lastName}
 									email={email}
 									password={password}
 									firstName={firstName}
+									lastName={lastName}
+									userName={userName}
 								/>
 							)}
 						/>
-						<Route path="/" component={TodoScreen} />
+						<Route path="/" exact component={TodoScreen} />
 					</BrowserRouter>
 				</main>
 			</AppErrorBoundary>
