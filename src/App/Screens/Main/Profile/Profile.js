@@ -1,4 +1,7 @@
 import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
+import UpdateIcon from '@material-ui/icons/Update';
 import React, { Component } from 'react';
 import {
 	firebaseAuth,
@@ -109,9 +112,13 @@ class Profile extends Component {
 								style={{
 									flexDirection: 'row',
 									justifyContent: 'space-around',
+									margin: 15,
 								}}
 							>
 								<input
+									style={{
+										display: 'none',
+									}}
 									onChange={(e) => {
 										const image = e.target.files[0];
 										this.setState({
@@ -120,7 +127,16 @@ class Profile extends Component {
 									}}
 									accept=".jpg,.jpeg,.png,.bimp,.gif"
 									type="file"
+									ref={(fileInput) => (this.fileInput = fileInput)}
 								/>
+								<Button
+									onClick={() => this.fileInput.click()}
+									variant="contained"
+									color="primary"
+								>
+									<InsertDriveFileIcon />
+									Choose File
+								</Button>
 								<Button
 									disabled={!this.state.imgUpload}
 									onClick={this.onUploadPhoto}
@@ -128,6 +144,7 @@ class Profile extends Component {
 									color="primary"
 									variant="contained"
 								>
+									<CloudUploadIcon />
 									Upload File
 								</Button>
 							</div>
@@ -265,6 +282,7 @@ class Profile extends Component {
 							this.state.phoneNumber === this.props.phoneNumber
 						}
 					>
+						<UpdateIcon />
 						Update
 					</Button>
 				</Grid>
