@@ -221,6 +221,17 @@ class Signup extends Component {
 						variant="contained"
 						color="primary"
 						onClick={this.onSignup}
+						disabled={
+							!this.state.firstName ||
+							!this.state.lastName ||
+							!this.state.userName ||
+							!this.state.country ||
+							!this.state.zipCode ||
+							!this.state.phoneNumber ||
+							!this.state.email ||
+							!this.state.password ||
+							!this.state.confirmPassword
+						}
 					>
 						Signup
 					</Button>

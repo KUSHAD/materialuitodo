@@ -1,6 +1,10 @@
-import { Button, Grid, TextField } from '@material-ui/core';
+import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
 import React, { Component } from 'react';
-import { firebaseAuth, firebaseFirestore } from '../../../../imports';
+import {
+	firebaseAuth,
+	firebaseFirestore,
+	firebaseStorage,
+} from '../../../../imports';
 import { AppErrorBoundary } from '../../../Error';
 class Profile extends Component {
 	constructor(props) {
@@ -16,6 +20,7 @@ class Profile extends Component {
 			country: this.props.country,
 			phoneNumber: this.props.phoneNumber,
 			imageURL: this.props.imageURL,
+			imgUpload: '',
 		};
 	}
 	onUpdateDetails = () => {
@@ -27,44 +32,108 @@ class Profile extends Component {
 					.updatePassword(this.state.password)
 					.then(() => {
 						console.log('success');
-						firebaseAuth.currentUser
-							.updatePhoneNumber(this.state.phoneNumber)
-							.then(() => {
-								console.log('success');
-								firebaseAuth.currentUser
-									.updateProfile({
-										displayName: `${this.state.firstName} ${this.state.lastName}`,
-										photoURL: this.state.imageURL,
-									})
-									.then(() => {
-										console.log('Success');
-										firebaseFirestore
-											.collection('users')
-											.doc(firebaseAuth.currentUser.uid)
-											.set({
-												email: this.state.email.trim(),
-												password: this.state.password,
-												userName: this.state.userName,
-												firstName: this.state.firstName.trim(),
-												lastName: this.state.lastName.trim(),
-												fullName: `${this.state.firstName} ${this.state.lastName}`,
-												downloadURL: this.state.imageURL,
-												zipCode: this.state.zipCode,
-												phoneNumber: this.state.phoneNumber,
-												country: this.state.country,
-											});
-									})
-									.catch((err) => console.log('error', err.message));
-							})
-							.catch((err) => console.log('error', err.message));
+						firebaseFirestore
+							.collection('users')
+							.doc(firebaseAuth.currentUser.uid)
+							.update({
+								email: this.state.email.trim(),
+								password: this.state.password,
+								userName: this.state.userName,
+								firstName: this.state.firstName.trim(),
+								lastName: this.state.lastName.trim(),
+								fullName: `${this.state.firstName} ${this.state.lastName}`,
+								downloadURL: this.state.imageURL,
+								zipCode: this.state.zipCode,
+								phoneNumber: this.state.phoneNumber,
+								country: this.state.country,
+							});
 					})
-					.catch((err) => console.log('error', err.message));
+					.catch((err) => alert('error', err.message));
 			})
-			.catch((err) => console.log('error', err.message));
+			.catch((err) => alert('error', err.message));
+	};
+	onUploadPhoto = () => {
+		console.log(this.state.imgUpload);
+		firebaseStorage
+			.ref(`/${firebaseAuth.currentUser.uid}/${this.state.imgUpload.name}`)
+			.put(this.state.imgUpload)
+			.on(
+				'state_changed',
+				(snapshot) => {
+					console.log(snapshot);
+				},
+				(err) => {
+					alert(err.message);
+					console.log(err);
+				},
+				() => {
+					firebaseStorage
+						.ref(firebaseAuth.currentUser.uid)
+						.child(this.state.imgUpload.name)
+						.getDownloadURL()
+						.then((url) => {
+							firebaseFirestore
+								.collection('users')
+								.doc(firebaseAuth.currentUser.uid)
+								.update({
+									downloadURL: url,
+								})
+								.then(() => {
+									console.log('sucess');
+									window.location.reload();
+								})
+								.catch((err) => {
+									alert(err.message);
+									console.log('err -->', err.message);
+								});
+						});
+				}
+			);
 	};
 	render() {
 		return (
 			<AppErrorBoundary>
+				<Paper
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						padding: 25,
+					}}
+				>
+					<Typography variant="h3" align="center">
+						Update Your Look
+					</Typography>
+					<AppErrorBoundary>
+						<center>
+							<div
+								style={{
+									flexDirection: 'row',
+									justifyContent: 'space-around',
+								}}
+							>
+								<input
+									onChange={(e) => {
+										const image = e.target.files[0];
+										this.setState({
+											imgUpload: image,
+										});
+									}}
+									accept=".jpg,.jpeg,.png,.bimp,.gif"
+									type="file"
+								/>
+								<Button
+									disabled={!this.state.imgUpload}
+									onClick={this.onUploadPhoto}
+									focusRipple
+									color="primary"
+									variant="contained"
+								>
+									Upload File
+								</Button>
+							</div>
+						</center>
+					</AppErrorBoundary>
+				</Paper>
 				<Grid
 					style={{
 						display: 'flex',
@@ -145,8 +214,7 @@ class Profile extends Component {
 						label="Phone Number"
 						value={this.state.phoneNumber}
 						variant="outlined"
-						type="number"
-						disabled
+						type="tel"
 						style={{
 							margin: '15px',
 						}}
@@ -185,6 +253,17 @@ class Profile extends Component {
 							margin: '15px',
 						}}
 						focusRipple
+						variant="contained"
+						disabled={
+							this.state.firstName === this.props.firstName &&
+							this.state.lastName === this.props.lastName &&
+							this.state.country === this.props.country &&
+							this.state.userName === this.props.userName &&
+							this.state.email === this.props.email &&
+							this.state.password === this.props.password &&
+							this.state.zipCode === this.props.zipCode &&
+							this.state.phoneNumber === this.props.phoneNumber
+						}
 					>
 						Update
 					</Button>

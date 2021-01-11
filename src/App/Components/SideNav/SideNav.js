@@ -14,8 +14,10 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
+import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { firebaseAuth, firebaseFirestore } from '../../../imports';
@@ -126,12 +128,13 @@ function SideNav(props) {
 				<List>
 					<ListItem>
 						<Button href="/" fullWidth>
+							<NoteOutlinedIcon />
 							Todos
 						</Button>
 					</ListItem>
 					<ListItem>
 						<Button href="/profile" fullWidth>
-							Profile
+							<AccountBoxOutlinedIcon /> Profile
 						</Button>
 					</ListItem>
 					<ListItem>
@@ -200,6 +203,7 @@ function SideNav(props) {
 				<main className={classes.content}>
 					<div className={classes.toolbar} />
 					<BrowserRouter>
+						<Route path="/" exact component={TodoScreen} />
 						<Route
 							path="/profile"
 							component={() => (
@@ -216,7 +220,6 @@ function SideNav(props) {
 								/>
 							)}
 						/>
-						<Route path="/" exact component={TodoScreen} />
 					</BrowserRouter>
 				</main>
 			</AppErrorBoundary>

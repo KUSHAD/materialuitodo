@@ -62,6 +62,7 @@ class App extends Component {
 			<AppErrorBoundary>
 				<BrowserRouter>
 					<Route path="/" component={MainScreen} />
+					<Redirect to="/" />
 				</BrowserRouter>
 			</AppErrorBoundary>
 		);

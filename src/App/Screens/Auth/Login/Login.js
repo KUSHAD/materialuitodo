@@ -16,6 +16,7 @@ class Login extends Component {
 		this.onLogin = this.onLogin.bind(this);
 	}
 	onLogin = (e) => {
+		const { history } = this.props;
 		e.preventDefault();
 		firebaseAuth
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -25,6 +26,7 @@ class Login extends Component {
 					email: '',
 					password: '',
 				});
+				if (history) history.push('/');
 			})
 			.catch((err) => {
 				console.log(err.message);
@@ -77,6 +79,7 @@ class Login extends Component {
 						focusRipple
 						variant="contained"
 						color="primary"
+						disabled={!this.state.email || !this.state.password}
 					>
 						Login
 					</Button>
