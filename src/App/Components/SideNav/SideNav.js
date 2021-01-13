@@ -19,7 +19,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { firebaseAuth, firebaseFirestore } from '../../../imports';
 import { AppErrorBoundary } from '../../Error';
 import { ProfileScreen, TodoScreen } from '../../Screens/Main';
@@ -119,7 +119,7 @@ function SideNav(props) {
 									width: '200px',
 								}}
 								src={profileImage}
-								alt="Profile Image"
+								alt={firstName}
 							/>
 						</ListItemAvatar>
 					</ListItem>
@@ -220,6 +220,7 @@ function SideNav(props) {
 								/>
 							)}
 						/>
+						<Redirect to="/" />
 					</BrowserRouter>
 				</main>
 			</AppErrorBoundary>
