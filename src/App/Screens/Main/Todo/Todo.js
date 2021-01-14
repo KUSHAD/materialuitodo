@@ -55,15 +55,15 @@ function Todo() {
 					}
 				});
 			});
-	}, [displayTodos]);
+	}, []);
 	return (
 		<>
 			<Paper>
-				<AppErrorBoundary>
+				{/* <AppErrorBoundary>
 					{displayTodos.map((todo) => (
 						<Typography>{todo.title}</Typography>
 					))}
-				</AppErrorBoundary>
+				</AppErrorBoundary> */}
 			</Paper>
 			<Fab
 				onClick={() => setModalOpen(true)}

@@ -72,6 +72,7 @@ function SideNav(props) {
 	const [zipCode, setZipCode] = useState('');
 	const [country, setCountry] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
+
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
