@@ -1,5 +1,6 @@
 import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import UpdateIcon from '@material-ui/icons/Update';
 import React, { Component } from 'react';
@@ -92,6 +93,36 @@ class Profile extends Component {
 						});
 				}
 			);
+	};
+	deleteAccount = () => {
+		firebaseFirestore
+			.collection('users')
+			.doc(firebaseAuth.currentUser.uid)
+			.delete()
+			.then(() => {
+				console.log('deleted Succesfully');
+				firebaseStorage
+					.ref(`${firebaseAuth.currentUser.uid}`)
+					.delete()
+					.then(() => {
+						firebaseAuth.currentUser
+							.delete()
+							.then((res) => {
+								console.log('deleted Succesfully');
+								window.location.reload();
+							})
+							.catch((err) => {
+								console.log('err deleting account -->', err.message);
+							});
+					})
+					.catch(() => {
+						console.log('err deleting account');
+					});
+			})
+
+			.catch((err) => {
+				console.log('err deleting account -->', err.message);
+			});
 	};
 	render() {
 		return (
@@ -263,6 +294,17 @@ class Profile extends Component {
 							onPasteCapture={(e) => e.preventDefault()}
 						/>
 					</Grid>
+					<Button
+						style={{
+							backgroundColor: '#ff0000',
+							color: '#fff',
+						}}
+						variant="contained"
+						onClick={this.deleteAccount}
+					>
+						<DeleteForeverIcon />
+						Delete Account
+					</Button>
 					<Button
 						onClick={this.onUpdateDetails}
 						color="primary"
