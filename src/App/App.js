@@ -2,9 +2,9 @@ import { CircularProgress } from '@material-ui/core';
 import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { firebaseAuth } from '../imports';
+import { SideNavComponent } from './Components';
 import { AppErrorBoundary } from './Error';
 import { LoginScreen, SignupScreen } from './Screens/Auth';
-import { MainScreen } from './Screens/Main';
 
 class App extends Component {
 	constructor(props) {
@@ -60,9 +60,7 @@ class App extends Component {
 		}
 		return (
 			<AppErrorBoundary>
-				<BrowserRouter>
-					<Route path="/" component={MainScreen} />
-				</BrowserRouter>
+				<SideNavComponent />
 			</AppErrorBoundary>
 		);
 	}

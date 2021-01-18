@@ -19,7 +19,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { firebaseAuth, firebaseFirestore } from '../../../imports';
 import { AppErrorBoundary } from '../../Error';
 import { ProfileScreen, TodoScreen } from '../../Screens/Main';
@@ -112,7 +112,12 @@ function SideNav(props) {
 			<AppErrorBoundary>
 				<div className={classes.toolbar} />
 				<List>
-					<ListItem>
+					<ListItem
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+						}}
+					>
 						<ListItemAvatar>
 							<Avatar
 								style={{
@@ -123,6 +128,13 @@ function SideNav(props) {
 								alt={firstName}
 							/>
 						</ListItemAvatar>
+						<Typography
+							style={{
+								textAlign: 'center',
+							}}
+						>
+							{firstName} {lastName}
+						</Typography>
 					</ListItem>
 				</List>
 				<Divider />
@@ -138,6 +150,7 @@ function SideNav(props) {
 							<AccountBoxOutlinedIcon /> Profile
 						</Button>
 					</ListItem>
+					<Divider />
 					<ListItem>
 						<Button fullWidth onClick={onSignOut}>
 							<ExitToAppIcon /> Logout
@@ -221,7 +234,6 @@ function SideNav(props) {
 								/>
 							)}
 						/>
-						<Redirect to="/" />
 					</BrowserRouter>
 				</main>
 			</AppErrorBoundary>

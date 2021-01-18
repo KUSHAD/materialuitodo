@@ -1,6 +1,7 @@
 import {
 	Button,
 	Fab,
+	Grid,
 	Modal,
 	Paper,
 	TextField,
@@ -8,7 +9,11 @@ import {
 } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
-import { firebaseAuth, firebaseFirestore } from '../../../../imports';
+import {
+	firebaseAuth,
+	firebaseFirestore,
+	firebaseFirestoreTimestamp,
+} from '../../../../imports';
 import { AppErrorBoundary } from '../../../Error';
 function Todo() {
 	const [modalOpen, setModalOpen] = useState(false);
@@ -22,6 +27,7 @@ function Todo() {
 				title: noteTitle,
 				content: noteContent,
 				id: '',
+				createdAt: firebaseFirestoreTimestamp,
 			})
 			.then((res) => {
 				console.log('success');
@@ -36,6 +42,7 @@ function Todo() {
 						setNoteTitle('');
 						setNoteContent('');
 						setModalOpen(false);
+						window.location.reload();
 					})
 					.catch((e) => console.log('err', e.message));
 			})
@@ -44,27 +51,72 @@ function Todo() {
 	useEffect(() => {
 		firebaseFirestore
 			.collection(firebaseAuth.currentUser.uid)
+			.orderBy('createdAt')
 			.get()
 			.then((data) => {
-				data.forEach((data) => {
-					if (data.exists) {
-						console.log(data.data());
-						setDisplayTodos(data.data());
-					} else {
-						console.log('does not exist');
-					}
-				});
+				if (!data.empty) {
+					let todos = [];
+					data.forEach((doc) => {
+						todos.push({
+							todoId: doc.data().id,
+							title: doc.data().title,
+							body: doc.data().content,
+							createdAt: doc.data().createdAt,
+						});
+						setDisplayTodos(todos);
+					});
+				} else {
+					console.log('does not exist');
+				}
 			});
 	}, []);
+	const deleteTodo = (row) => {
+		firebaseFirestore
+			.collection(firebaseAuth.currentUser.uid)
+			.doc(row)
+			.delete()
+			.then((res) => {
+				console.log('deleted Succesfully');
+				window.location.reload();
+			})
+			.catch((err) => {
+				console.log('err deleting todo -->', err.message);
+			});
+	};
 	return (
 		<>
-			<Paper>
-				{/* <AppErrorBoundary>
+			<AppErrorBoundary>
+				<Grid container>
 					{displayTodos.map((todo) => (
-						<Typography>{todo.title}</Typography>
+						<Grid
+							style={{
+								margin: 5,
+							}}
+							item
+							xs={5}
+							key={todo.todoId}
+						>
+							<Paper>
+								<Typography variant="h4">{todo.title}</Typography>
+								<Typography variant="body1">{todo.body}</Typography>
+								<div
+									style={{
+										display: 'flex',
+										flexDirection: 'row',
+										justifyContent: 'center',
+									}}
+								>
+									<Button>View</Button>
+									<Button>Update</Button>
+									<Button onClick={() => deleteTodo(todo.todoId)}>
+										Delete
+									</Button>
+								</div>
+							</Paper>
+						</Grid>
 					))}
-				</AppErrorBoundary> */}
-			</Paper>
+				</Grid>
+			</AppErrorBoundary>
 			<Fab
 				onClick={() => setModalOpen(true)}
 				style={{
@@ -95,7 +147,7 @@ function Todo() {
 					>
 						<Paper
 							style={{
-								height: '75vh',
+								height: '75%',
 								width: '100vw',
 								outline: 0,
 							}}
@@ -146,7 +198,11 @@ function Todo() {
 										margin: 15,
 									}}
 									focusRipple
-									onClick={() => setModalOpen(false)}
+									onClick={() => {
+										setModalOpen(false);
+										setNoteContent('');
+										setNoteTitle('');
+									}}
 								>
 									X Close
 								</Button>
