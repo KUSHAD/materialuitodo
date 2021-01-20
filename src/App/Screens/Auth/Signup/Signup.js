@@ -45,7 +45,7 @@ class Signup extends Component {
 							phoneNumber: this.state.phoneNumber,
 							country: this.state.country,
 						})
-						.then(() => {
+						.then(async () => {
 							console.log('Success');
 							this.setState({
 								firstName: '',
@@ -58,6 +58,7 @@ class Signup extends Component {
 								zipCode: '',
 								phoneNumber: '',
 							});
+							await firebaseAuth.currentUser.sendEmailVerification();
 							if (history) history.push('/');
 						})
 						.catch((err) => {
@@ -143,7 +144,9 @@ class Signup extends Component {
 							}}
 							variant="outlined"
 							type="text"
-							onChange={(e) => this.setState({ country: e.target.value })}
+							onChange={(e) =>
+								this.setState({ country: e.target.value.toUpperCase() })
+							}
 						/>
 						<TextField
 							label="Zip Code"
