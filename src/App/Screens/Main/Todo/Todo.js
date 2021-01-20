@@ -20,6 +20,8 @@ function Todo() {
 	const [noteTitle, setNoteTitle] = useState('');
 	const [noteContent, setNoteContent] = useState('');
 	const [displayTodos, setDisplayTodos] = useState([]);
+	const [isUpdate, setIsUpdate] = useState(false);
+	const [viewModal, setViewModal] = useState(false);
 	const addTodo = () => {
 		firebaseFirestore
 			.collection(firebaseAuth.currentUser.uid)
@@ -90,10 +92,11 @@ function Todo() {
 					{displayTodos.map((todo) => (
 						<Grid
 							style={{
-								margin: 5,
+								margin: 2,
+								textAlign: 'center',
 							}}
 							item
-							xs={5}
+							xs={12}
 							key={todo.todoId}
 						>
 							<Paper>
@@ -106,8 +109,25 @@ function Todo() {
 										justifyContent: 'center',
 									}}
 								>
-									<Button>View</Button>
-									<Button>Update</Button>
+									<Button
+										onClick={() => {
+											setNoteTitle(todo.title);
+											setNoteContent(todo.body);
+											setViewModal(true);
+										}}
+									>
+										View
+									</Button>
+									<Button
+										onClick={() => {
+											setNoteTitle(todo.title);
+											setNoteContent(todo.body);
+											setIsUpdate(true);
+											setModalOpen(true);
+										}}
+									>
+										Update
+									</Button>
 									<Button onClick={() => deleteTodo(todo.todoId)}>
 										Delete
 									</Button>
@@ -118,7 +138,10 @@ function Todo() {
 				</Grid>
 			</AppErrorBoundary>
 			<Fab
-				onClick={() => setModalOpen(true)}
+				onClick={() => {
+					setIsUpdate(false);
+					setModalOpen(true);
+				}}
 				style={{
 					margin: 0,
 					top: 'auto',
@@ -158,7 +181,7 @@ function Todo() {
 									textAlign: 'center',
 								}}
 							>
-								Write Your Todo
+								{isUpdate ? 'Update This Todo' : 'Write Your Todo'}
 							</Typography>
 							<center>
 								<div
@@ -216,6 +239,88 @@ function Todo() {
 									onClick={addTodo}
 								>
 									<Add /> Todo
+								</Button>
+							</center>
+						</Paper>
+					</div>
+				</AppErrorBoundary>
+			</Modal>
+			<Modal
+				style={{
+					outline: 0,
+				}}
+				open={viewModal}
+			>
+				<AppErrorBoundary>
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+						}}
+					>
+						<Paper
+							style={{
+								height: '75%',
+								width: '100vw',
+								outline: 0,
+							}}
+						>
+							<Typography
+								variant="h6"
+								style={{
+									textAlign: 'center',
+								}}
+							>
+								View This Todo
+							</Typography>
+							<center>
+								<div
+									style={{
+										width: '80%',
+									}}
+								>
+									<TextField
+										disabled
+										value={noteTitle}
+										onChange={(e) => setNoteTitle(e.target.value)}
+										fullWidth
+										variant="outlined"
+										label="Todo Title"
+										required
+									/>
+									<TextField
+										disabled
+										value={noteContent}
+										onChange={(e) => setNoteContent(e.target.value)}
+										fullWidth
+										variant="outlined"
+										label="Todo Contents"
+										required
+										style={{
+											marginTop: 15,
+										}}
+										multiline
+										rows={15}
+									/>
+								</div>
+							</center>
+							<center>
+								<Button
+									variant="contained"
+									style={{
+										backgroundColor: 'red',
+										color: '#fff',
+										margin: 15,
+									}}
+									focusRipple
+									onClick={() => {
+										setViewModal(false);
+										setNoteContent('');
+										setNoteTitle('');
+									}}
+								>
+									X Close
 								</Button>
 							</center>
 						</Paper>

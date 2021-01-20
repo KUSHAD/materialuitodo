@@ -101,25 +101,16 @@ class Profile extends Component {
 			.delete()
 			.then(() => {
 				console.log('deleted Succesfully');
-				firebaseStorage
-					.ref(`${firebaseAuth.currentUser.uid}`)
+				firebaseAuth.currentUser
 					.delete()
 					.then(() => {
-						firebaseAuth.currentUser
-							.delete()
-							.then((res) => {
-								console.log('deleted Succesfully');
-								window.location.reload();
-							})
-							.catch((err) => {
-								console.log('err deleting account -->', err.message);
-							});
+						console.log('deleted Succesfully');
+						window.location.reload();
 					})
-					.catch(() => {
-						console.log('err deleting account');
+					.catch((err) => {
+						console.log('err deleting account -->', err.message);
 					});
 			})
-
 			.catch((err) => {
 				console.log('err deleting account -->', err.message);
 			});
