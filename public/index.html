@@ -13,7 +13,7 @@
 			rel="stylesheet">
 		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 		<link rel="shortcut-icon" type="image/png" href="%PUBLIC_URL%/assets/logo-192x192.png" />
-		<link rel="icon" href="%PUBLIC_URL%/assets/logo-64x64" />
+		<link rel="icon" type="image/png" href="%PUBLIC_URL%/assets/logo-64x64.png" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<link rel="apple-touch-icon" href="%PUBLIC_URL%/assets/logo-192x162.png">
 		<meta name="apple-mobile-web-app-title" content="PMR" />
@@ -31,8 +31,21 @@
 			TIME . IF THE APP DOESN'T LOAD IN 3 MINUTES PLEASE CLOSE THE APP AND THEN TURN ON THE MOBILE DATA
 			AND THEN OPEN THIS APP . IF NONE OF THESE METHODS ARE WORKING PLEASE SEND THE TEAM A CRASH REPORT WITH FULL
 			DETAILS ABOUT WHAT HAD HAPPENED , WHAT YOU TRIED AND IT WILL ALSO BE GREAT IF YOU CAN SEND SCREENSHOTS OF THAT
-			PROBLEM</noscript>
+			PROBLEM AT noreply@materialuitodo.firebaseapp.com</noscript>
 		<div id="app"></div>
+		<script>
+			if ('serviceWorker' in navigator) {
+				window.addEventListener("load", () => {
+					navigator.serviceWorker.register('./serviceworker.js')
+						.then(reg => {
+							console.log('success -->', reg.scope)
+						})
+						.catch(err => {
+							console.log('Failure ->', err)
+						})
+				})
+			}
+		</script>
 	</body>
 
 </html>
