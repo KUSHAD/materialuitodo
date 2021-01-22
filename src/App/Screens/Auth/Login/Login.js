@@ -86,6 +86,9 @@ class Login extends Component {
 					<Button component={Link} to="/signup">
 						Don't Have An Account ? Signup
 					</Button>
+					<Button component={Link} to="/forgot-password">
+						Forgot Password
+					</Button>
 				</Grid>
 			</AppErrorBoundary>
 		);

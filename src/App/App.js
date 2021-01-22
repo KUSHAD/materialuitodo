@@ -4,7 +4,12 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { firebaseAuth } from '../imports';
 import { SideNavComponent } from './Components';
 import { AppErrorBoundary } from './Error';
-import { LoginScreen, SignupScreen, VerifyEmailScreen } from './Screens/Auth';
+import {
+	ForgotPasswordScreen,
+	LoginScreen,
+	SignupScreen,
+	VerifyEmailScreen,
+} from './Screens/Auth';
 
 class App extends Component {
 	constructor(props) {
@@ -52,6 +57,11 @@ class App extends Component {
 					<BrowserRouter>
 						<Route path="/signup" exact component={SignupScreen} />
 						<Route path="/login" exact component={LoginScreen} />
+						<Route
+							path="/forgot-password"
+							exact
+							component={ForgotPasswordScreen}
+						/>
 						<Route path="/" render={() => <Redirect to="/signup" />} />
 						<Redirect to="/signup" />
 					</BrowserRouter>
