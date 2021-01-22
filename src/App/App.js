@@ -62,8 +62,8 @@ class App extends Component {
 							exact
 							component={ForgotPasswordScreen}
 						/>
-						<Route path="/" render={() => <Redirect to="/signup" />} />
-						<Redirect to="/signup" />
+						<Route path="/" render={() => <Redirect to="/login" />} />
+						<Redirect to="/login" />
 					</BrowserRouter>
 				</AppErrorBoundary>
 			);
