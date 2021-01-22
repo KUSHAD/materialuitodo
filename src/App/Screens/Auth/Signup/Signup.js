@@ -183,6 +183,7 @@ class Signup extends Component {
 						}}
 						value={this.state.email}
 						onChange={(e) => this.setState({ email: e.target.value })}
+						helperText="A Verification Email Will Be Sent To You"
 					/>
 					<Grid
 						style={{
