@@ -1,5 +1,6 @@
 import { Paper } from '@material-ui/core';
 import React, { Component } from 'react';
+import { firebaseFirestore } from '../../imports';
 class ErrorBoundary extends Component {
 	constructor(props) {
 		super(props);
@@ -13,6 +14,10 @@ class ErrorBoundary extends Component {
 			errorInfo: errorInfo,
 		});
 		// You can also log error messages to an error reporting service here
+		firebaseFirestore.collection('error-reporting').add({
+			error: error,
+			errorInfo: errorInfo,
+		});
 	}
 
 	render() {
