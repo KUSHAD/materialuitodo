@@ -67,7 +67,6 @@ function SideNav(props) {
 	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [userName, setUserName] = useState('');
-	const [password, setPassword] = useState('');
 	const [profileImage, setProfileImage] = useState('');
 	const [zipCode, setZipCode] = useState('');
 	const [country, setCountry] = useState('');
@@ -94,7 +93,6 @@ function SideNav(props) {
 					let userData = user.data();
 					setFirstName(userData.firstName);
 					setLastName(userData.lastName);
-					setPassword(userData.password);
 					setEmail(userData.email);
 					setUserName(userData.userName);
 					setProfileImage(userData.downloadURL);
@@ -223,7 +221,6 @@ function SideNav(props) {
 							component={() => (
 								<ProfileScreen
 									email={email}
-									password={password}
 									firstName={firstName}
 									lastName={lastName}
 									userName={userName}

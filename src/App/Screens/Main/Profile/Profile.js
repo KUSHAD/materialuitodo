@@ -16,7 +16,6 @@ class Profile extends Component {
 
 		this.state = {
 			email: this.props.email,
-			password: this.props.password,
 			firstName: this.props.firstName,
 			lastName: this.props.lastName,
 			userName: this.props.userName,
@@ -32,27 +31,27 @@ class Profile extends Component {
 			.updateEmail(this.state.email)
 			.then(() => {
 				console.log('success');
-				firebaseAuth.currentUser
-					.updatePassword(this.state.password)
+				firebaseFirestore
+					.collection('users')
+					.doc(firebaseAuth.currentUser.uid)
+					.update({
+						email: this.state.email.trim(),
+						password: this.state.password,
+						userName: this.state.userName,
+						firstName: this.state.firstName.trim(),
+						lastName: this.state.lastName.trim(),
+						fullName: `${this.state.firstName} ${this.state.lastName}`,
+						downloadURL: this.state.imageURL,
+						zipCode: this.state.zipCode,
+						phoneNumber: this.state.phoneNumber,
+						country: this.state.country,
+					})
 					.then(() => {
 						console.log('success');
-						firebaseFirestore
-							.collection('users')
-							.doc(firebaseAuth.currentUser.uid)
-							.update({
-								email: this.state.email.trim(),
-								password: this.state.password,
-								userName: this.state.userName,
-								firstName: this.state.firstName.trim(),
-								lastName: this.state.lastName.trim(),
-								fullName: `${this.state.firstName} ${this.state.lastName}`,
-								downloadURL: this.state.imageURL,
-								zipCode: this.state.zipCode,
-								phoneNumber: this.state.phoneNumber,
-								country: this.state.country,
-							});
 					})
-					.catch((err) => alert('error', err.message));
+					.catch((err) => {
+						console.log('err', err.message);
+					});
 			})
 			.catch((err) => alert('error', err.message));
 	};
@@ -258,33 +257,18 @@ class Profile extends Component {
 							margin: '15px',
 						}}
 					/>
-					<Grid
+
+					<TextField
+						label="Email"
+						value={this.state.email}
+						variant="outlined"
+						type="email"
+						onChange={(e) => this.setState({ email: e.target.value })}
 						style={{
-							flexDirection: 'row',
+							margin: '15px',
 						}}
-					>
-						<TextField
-							label="Email"
-							value={this.state.email}
-							variant="outlined"
-							type="email"
-							onChange={(e) => this.setState({ email: e.target.value })}
-							style={{
-								margin: '15px',
-							}}
-						/>
-						<TextField
-							label="Password"
-							value={this.state.password}
-							variant="outlined"
-							type="password"
-							style={{
-								margin: '15px',
-							}}
-							onChange={(e) => this.setState({ password: e.target.value })}
-							onPasteCapture={(e) => e.preventDefault()}
-						/>
-					</Grid>
+					/>
+
 					<Button
 						style={{
 							backgroundColor: '#ff0000',
@@ -310,7 +294,6 @@ class Profile extends Component {
 							this.state.country === this.props.country &&
 							this.state.userName === this.props.userName &&
 							this.state.email === this.props.email &&
-							this.state.password === this.props.password &&
 							this.state.zipCode === this.props.zipCode &&
 							this.state.phoneNumber === this.props.phoneNumber
 						}
@@ -318,6 +301,10 @@ class Profile extends Component {
 						<UpdateIcon />
 						Update
 					</Button>
+					<Typography variant="caption">
+						Please Remember to authenticate yourself Recently and commit these
+						actions within 10 mins of authenticating yourself
+					</Typography>
 				</Grid>
 			</AppErrorBoundary>
 		);
