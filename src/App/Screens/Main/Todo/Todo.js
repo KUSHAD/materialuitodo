@@ -8,6 +8,7 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
+import UpdateIcon from '@material-ui/icons/Update';
 import React, { useEffect, useState } from 'react';
 import {
 	firebaseAuth,
@@ -15,6 +16,7 @@ import {
 	firebaseFirestoreTimestamp,
 } from '../../../../imports';
 import { AppErrorBoundary } from '../../../Error';
+
 function Todo() {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [noteTitle, setNoteTitle] = useState('');
@@ -238,7 +240,15 @@ function Todo() {
 									disabled={!noteTitle || !noteContent}
 									onClick={addTodo}
 								>
-									<Add /> Todo
+									{isUpdate ? (
+										<div>
+											<UpdateIcon /> Update
+										</div>
+									) : (
+										<div>
+											<Add /> Add
+										</div>
+									)}
 								</Button>
 							</center>
 						</Paper>
