@@ -1,7 +1,10 @@
 import { Button, Grid, Paper, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { firebaseAuth } from '../../../../imports';
 function Verify() {
+	useEffect(() => {
+		document.title = `MATERIALUITODO - Verify Email`;
+	});
 	const resendVerificationEmail = async () => {
 		await firebaseAuth.currentUser
 			.sendEmailVerification()

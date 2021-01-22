@@ -15,6 +15,9 @@ class Login extends Component {
 		};
 		this.onLogin = this.onLogin.bind(this);
 	}
+	componentDidMount() {
+		document.title = `MATERIALUITODO - Login`;
+	}
 	onLogin = (e) => {
 		const { history } = this.props;
 		e.preventDefault();
