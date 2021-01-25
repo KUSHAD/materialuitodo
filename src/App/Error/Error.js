@@ -15,8 +15,8 @@ class ErrorBoundary extends Component {
 		});
 		// You can also log error messages to an error reporting service here
 		firebaseFirestore.collection('error-reporting').add({
-			error: error,
-			errorInfo: errorInfo,
+			error: this.state.error,
+			errorInfo: this.state.errorInfo,
 		});
 	}
 
