@@ -273,10 +273,7 @@ class Profile extends Component {
 					/>
 
 					<Button
-						style={{
-							backgroundColor: '#ff0000',
-							color: '#fff',
-						}}
+						color="secondary"
 						variant="contained"
 						onClick={this.deleteAccount}
 					>

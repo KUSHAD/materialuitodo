@@ -218,11 +218,7 @@ function Todo() {
 							<center>
 								<Button
 									variant="contained"
-									style={{
-										backgroundColor: 'red',
-										color: '#fff',
-										margin: 15,
-									}}
+									color="secondary"
 									focusRipple
 									onClick={() => {
 										setModalOpen(false);
@@ -319,11 +315,7 @@ function Todo() {
 							<center>
 								<Button
 									variant="contained"
-									style={{
-										backgroundColor: 'red',
-										color: '#fff',
-										margin: 15,
-									}}
+									color="secondary"
 									focusRipple
 									onClick={() => {
 										setViewModal(false);
