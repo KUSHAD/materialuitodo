@@ -8,6 +8,8 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
+import CloseIcon from '@material-ui/icons/Close';
+import SearchIcon from '@material-ui/icons/Search';
 import UpdateIcon from '@material-ui/icons/Update';
 import React, { useEffect, useState } from 'react';
 import {
@@ -15,8 +17,8 @@ import {
 	firebaseFirestore,
 	firebaseFirestoreTimestamp,
 } from '../../../../imports';
+import { SearchBarComponent } from '../../../Components';
 import { AppErrorBoundary } from '../../../Error';
-
 function Todo() {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [noteTitle, setNoteTitle] = useState('');
@@ -24,6 +26,8 @@ function Todo() {
 	const [displayTodos, setDisplayTodos] = useState([]);
 	const [isUpdate, setIsUpdate] = useState(false);
 	const [viewModal, setViewModal] = useState(false);
+	const [searchTerm, setSearchTerm] = useState('');
+	const [searchTerms, setSearchTerms] = useState([]);
 	const addTodo = () => {
 		firebaseFirestore
 			.collection(firebaseAuth.currentUser.uid)
@@ -91,53 +95,99 @@ function Todo() {
 	return (
 		<>
 			<AppErrorBoundary>
-				<Grid container>
-					{displayTodos.map((todo) => (
-						<Grid
-							style={{
-								margin: 2,
-								textAlign: 'center',
-							}}
-							item
-							xs={12}
-							key={todo.todoId}
-						>
-							<Paper>
-								<Typography variant="h4">{todo.title}</Typography>
-								<Typography variant="body1">{todo.body}</Typography>
-								<div
-									style={{
-										display: 'flex',
-										flexDirection: 'row',
-										justifyContent: 'center',
+				<SearchBarComponent
+					label="Search Your Todos"
+					fullWidth
+					value={searchTerm}
+					onChange={(e) => {
+						const searchValue = e.target.value;
+						const filteredSearchValue = searchValue.replace(
+							/[\[\]&\/\\#,+@!^()$~%.'":*?<>\-{}_;`\=1234567890|]/g,
+							''
+						);
+						const strArray1 = filteredSearchValue.toUpperCase().split(' ');
+						setSearchTerm(searchValue);
+						setSearchTerms(strArray1);
+					}}
+					uiAfterInputField={
+						<>
+							{!searchTerm ? null : (
+								<Button
+									onClick={() => {
+										setSearchTerm('');
+										setSearchTerms([]);
 									}}
+									color="primary"
+									variant="text"
 								>
-									<Button
-										onClick={() => {
-											setNoteTitle(todo.title);
-											setNoteContent(todo.body);
-											setViewModal(true);
+									<CloseIcon />
+								</Button>
+							)}
+						</>
+					}
+					uiBeforeInputField={
+						<>
+							<Button disabled>
+								<SearchIcon />
+							</Button>
+						</>
+					}
+				/>
+			</AppErrorBoundary>
+			<AppErrorBoundary>
+				<Grid container>
+					{displayTodos
+						.filter((todo) =>
+							searchTerms.every((word) => {
+								return todo.title.toUpperCase().indexOf(word) > -1;
+							})
+						)
+						.map((todo) => (
+							<Grid
+								style={{
+									margin: 2,
+									textAlign: 'center',
+								}}
+								item
+								xs={12}
+								key={todo.todoId}
+							>
+								<Paper>
+									<Typography variant="h4">{todo.title}</Typography>
+									<Typography variant="body1">{todo.body}</Typography>
+									<div
+										style={{
+											display: 'flex',
+											flexDirection: 'row',
+											justifyContent: 'center',
 										}}
 									>
-										View
-									</Button>
-									<Button
-										onClick={() => {
-											setNoteTitle(todo.title);
-											setNoteContent(todo.body);
-											setIsUpdate(true);
-											setModalOpen(true);
-										}}
-									>
-										Update
-									</Button>
-									<Button onClick={() => deleteTodo(todo.todoId)}>
-										Delete
-									</Button>
-								</div>
-							</Paper>
-						</Grid>
-					))}
+										<Button
+											onClick={() => {
+												setNoteTitle(todo.title);
+												setNoteContent(todo.body);
+												setViewModal(true);
+											}}
+										>
+											View
+										</Button>
+										<Button
+											onClick={() => {
+												setNoteTitle(todo.title);
+												setNoteContent(todo.body);
+												setIsUpdate(true);
+												setModalOpen(true);
+											}}
+										>
+											Update
+										</Button>
+										<Button onClick={() => deleteTodo(todo.todoId)}>
+											Delete
+										</Button>
+									</div>
+								</Paper>
+							</Grid>
+						))}
 				</Grid>
 			</AppErrorBoundary>
 			<Fab
