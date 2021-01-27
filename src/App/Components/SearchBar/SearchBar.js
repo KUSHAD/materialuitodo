@@ -1,14 +1,9 @@
-import { Paper, TextField } from '@material-ui/core';
+import { Button, Paper, TextField } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import SearchIcon from '@material-ui/icons/Search';
 import React from 'react';
 
-const SearchBar = ({
-	label,
-	fullWidth,
-	uiAfterInputField,
-	value,
-	onChange,
-	uiBeforeInputField,
-}) => {
+const SearchBar = ({ label, fullWidth, value, onChange, onClear }) => {
 	return (
 		<>
 			<Paper
@@ -17,14 +12,20 @@ const SearchBar = ({
 					flexDirection: 'row',
 				}}
 			>
-				{uiBeforeInputField}
+				<Button disabled>
+					<SearchIcon />
+				</Button>
 				<TextField
 					value={value}
 					onChange={onChange}
 					label={label}
 					fullWidth={fullWidth}
 				/>
-				{uiAfterInputField}
+				{!value ? null : (
+					<Button onClick={onClear} color="primary" variant="text">
+						<CloseIcon />
+					</Button>
+				)}
 			</Paper>
 		</>
 	);

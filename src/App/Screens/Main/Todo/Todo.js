@@ -8,8 +8,6 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import CloseIcon from '@material-ui/icons/Close';
-import SearchIcon from '@material-ui/icons/Search';
 import UpdateIcon from '@material-ui/icons/Update';
 import React, { useEffect, useState } from 'react';
 import {
@@ -109,29 +107,10 @@ function Todo() {
 						setSearchTerm(searchValue);
 						setSearchTerms(strArray1);
 					}}
-					uiAfterInputField={
-						<>
-							{!searchTerm ? null : (
-								<Button
-									onClick={() => {
-										setSearchTerm('');
-										setSearchTerms([]);
-									}}
-									color="primary"
-									variant="text"
-								>
-									<CloseIcon />
-								</Button>
-							)}
-						</>
-					}
-					uiBeforeInputField={
-						<>
-							<Button disabled>
-								<SearchIcon />
-							</Button>
-						</>
-					}
+					onClear={() => {
+						setSearchTerm('');
+						setSearchTerms([]);
+					}}
 				/>
 			</AppErrorBoundary>
 			<AppErrorBoundary>
