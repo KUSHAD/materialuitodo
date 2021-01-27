@@ -101,11 +101,12 @@ service firebase.storage {
    > > > > > > > Go To Storage
    > > > > > > > Click on Enable
    > > > > > > > Now When The Interface Opens Go To Rules tab and paste <a href="#storage-rules">this</a>
-   > > > > > > > Click on Publish
-   > > > > > > > Go To Project Overview
-   > > > > > > > Click on add a Web App
-   > > > > > > > Write Your App Name
-   > > > > > > > Copy The Firebase Configs
+   > > > > > > >
+   > > > > > > > > Click on Publish
+   > > > > > > > > Go To Project Overview
+   > > > > > > > > Click on add a Web App
+   > > > > > > > > Write Your App Name
+   > > > > > > > > Copy The Firebase Configs
 
 3. Open This Repository in your favourite code editor
 4. Rename src/environment/environment.example.js to src/environment/environment.js and paste your configs under `environment.firebase`
