@@ -241,6 +241,7 @@ function Todo() {
 										}}
 										multiline
 										rows={15}
+										rowsMax={15}
 									/>
 								</div>
 							</center>
