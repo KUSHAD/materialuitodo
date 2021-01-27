@@ -1,70 +1,113 @@
-# Getting Started with Create React App
+# Mui-Todo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern Todo App Made Using React , Material-ui and uses Firebase Hosting , Firebase Firestore , Firebase storage , Firebase Real time Database and Firebase Authentication
 
-## Available Scripts
+### Technologies used
 
-In the project directory, you can run:
+1. React
+2. Firebase-Firestore
+3. Firebase-Realtime-Database
+4. Firebase-Storage
+5. Firebase-Authentication
+6. Firebase-hosting
 
-### `yarn start`
+### Live Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Check it live <a href="https://mui-todo.web.app" target="_blank">https://mui-todo.web.app</a>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Firebase Rules To Use
 
-### `yarn test`
+#### (Without These The App Will Not Work)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<a name="firestore-rules">
 
-### `yarn build`
+##### Firebase-Firestore
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+    allow read , write , update , delete : if request.auth.uid != null
+    }
+  }
+}
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+</a>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<a name="storage-rules">
 
-### `yarn eject`
+##### Firebase-Storage
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write,update,delete: if request.auth.uid != null;
+    }
+  }
+}
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+</a>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<a name="rtdb-rules">
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+##### Firebase-Realtime-Database
 
-## Learn More
+```json
+{
+	"rules": {
+		".read": "auth.uid != null",
+		".write": "auth.uid != null"
+	}
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+</a>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### To Get Started
 
-### Code Splitting
+1. First Clone My Repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+	git clone https://github.com/KUSHAD/materialuitodo/
+```
 
-### Analyzing the Bundle Size
+2. Go To <a href="https://console.firebase.google.com" target="_blank"> Firebase Console </a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   > Create A New Firebase Project
+   >
+   > > Go To Authentication
+   > >
+   > > > Go To Sign-In Method
+   > > >
+   > > > > Click on Enable
+   > > > > Go To Firestore
+   > > > > Click On Create Database
+   > > > > Click On ` Start In Test Mode` Click on Ok
+   > > > >
+   > > > > > Now When The Database Opens Go To Rules tab and paste <a href="#firestore-rules">this</a>
+   > > > > >
+   > > > > > > Click on Publish
+   > > > > > > Go To Realtime Database
+   > > > > > > Click on Create Database
+   > > > > > > Click On ` Start In Test Mode` Then Click on Ok
+   > > > > > > Now When The Database Opens Go To Rules tab and paste <a href="#rtdb-rules">this</a>
+   > > > > > >
+   > > > > > > > Click on Publish
+   > > > > > > > Go To Storage
+   > > > > > > > Click on Enable
+   > > > > > > > Now When The Interface Opens Go To Rules tab and paste <a href="#storage-rules">this</a>
+   > > > > > > > Click on Publish
+   > > > > > > > Go To Project Overview
+   > > > > > > > Click on add a Web App
+   > > > > > > > Write Your App Name
+   > > > > > > > Copy The Firebase Configs
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. Open This Repository in your favourite code editor
+4. Rename src/environment/environment.example.js to src/environment/environment.js and paste your configs under `environment.firebase`
+5. Run `yarn` or `npm install`
+6. After Installation run `npm start`
