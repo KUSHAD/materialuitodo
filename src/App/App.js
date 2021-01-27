@@ -1,6 +1,6 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { Component } from 'react';
-import { MemoryRouter, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { firebaseAuth } from '../imports';
 import { SideNavComponent } from './Components';
 import { AppErrorBoundary } from './Error';
@@ -54,7 +54,7 @@ class App extends Component {
 		if (!this.state.loggedIn) {
 			return (
 				<AppErrorBoundary>
-					<MemoryRouter>
+					<BrowserRouter>
 						<Route path="/signup" exact component={SignupScreen} />
 						<Route path="/login" exact component={LoginScreen} />
 						<Route
@@ -64,7 +64,7 @@ class App extends Component {
 						/>
 						<Route path="/" render={() => <Redirect to="/login" />} />
 						<Redirect to="/login" />
-					</MemoryRouter>
+					</BrowserRouter>
 				</AppErrorBoundary>
 			);
 		}
