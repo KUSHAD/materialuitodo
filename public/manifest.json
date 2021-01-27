@@ -1,6 +1,7 @@
 {
 	"short_name": "Mui-Todo",
 	"name": "Mui-Todo",
+	"description": "A modern Todo App Made Using React , Material-ui and uses Firebase Hosting , Firebase Firestore , Firebase storage , Firebase Real time Database and Firebase Authentication",
 	"icons": [
 		{
 			"src": "./assets/logo-24x24.png",
