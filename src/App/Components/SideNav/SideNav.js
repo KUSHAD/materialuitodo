@@ -16,13 +16,15 @@ import {
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import FeedbackIcon from '@material-ui/icons/Feedback';
 import MenuIcon from '@material-ui/icons/Menu';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { firebaseAuth, firebaseFirestore } from '../../../imports';
 import { AppErrorBoundary } from '../../Error';
-import { ProfileScreen, TodoScreen } from '../../Screens/Main';
+import { FeedBackScreen, ProfileScreen, TodoScreen } from '../../Screens/Main';
+import { WriteFeedbackScreen } from '../../Screens/Main/FeedBack';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -150,6 +152,13 @@ function SideNav(props) {
 					</ListItem>
 					<Divider />
 					<ListItem>
+						<Button href="/feedback" fullWidth>
+							<FeedbackIcon />
+							Feedback
+						</Button>
+					</ListItem>
+					<Divider />
+					<ListItem>
 						<Button fullWidth onClick={onSignOut}>
 							<ExitToAppIcon /> Logout
 						</Button>
@@ -230,6 +239,20 @@ function SideNav(props) {
 									imageURL={profileImage}
 								/>
 							)}
+						/>
+						<Route path="/feedback" component={FeedBackScreen} exact />
+						<Route
+							path="/feedback/new"
+							component={() => (
+								<WriteFeedbackScreen
+									imageURL={profileImage}
+									email={email}
+									firstName={firstName}
+									lastName={lastName}
+									userName={userName}
+								/>
+							)}
+							exact
 						/>
 					</BrowserRouter>
 				</main>
