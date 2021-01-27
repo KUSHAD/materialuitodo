@@ -26,9 +26,7 @@ class Profile extends Component {
 			imgUpload: '',
 		};
 	}
-	componentDidMount() {
-		document.title = 'MATERIALUITODO - My Profile';
-	}
+
 	onUpdateDetails = () => {
 		firebaseAuth.currentUser
 			.updateEmail(this.state.email)

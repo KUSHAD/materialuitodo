@@ -1,13 +1,11 @@
 import { Button, Grid, TextField } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { firebaseAuth } from '../../../../imports';
 function ForgotPassword() {
 	const [email, setEmail] = useState('');
 	const history = useHistory();
-	useEffect(() => {
-		document.title = `MATERIALUITODO - Forgot Password`;
-	});
+
 	const sendPasswordResetEmail = () => {
 		firebaseAuth
 			.sendPasswordResetEmail(email)

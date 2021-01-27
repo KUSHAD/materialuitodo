@@ -21,9 +21,7 @@ class Signup extends Component {
 		};
 		this.onSignup = this.onSignup.bind(this);
 	}
-	componentDidMount() {
-		document.title = `MATERIALUITODO - Signup`;
-	}
+
 	onSignup = (e) => {
 		const { history } = this.props;
 		e.preventDefault();

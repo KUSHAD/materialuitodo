@@ -55,7 +55,6 @@ function Todo() {
 			.catch((e) => console.log('err', e.message));
 	};
 	useEffect(() => {
-		document.title = `MATERIALUITODO - Todos`;
 		firebaseFirestore
 			.collection(firebaseAuth.currentUser.uid)
 			.orderBy('createdAt')
