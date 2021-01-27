@@ -6,7 +6,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="theme-color" content="#303F9F" />
-		<title>MATERIALUITODO</title>
+		<title>Mui-Todo</title>
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link
 			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
@@ -33,19 +33,6 @@
 			DETAILS ABOUT WHAT HAD HAPPENED , WHAT YOU TRIED AND IT WILL ALSO BE GREAT IF YOU CAN SEND SCREENSHOTS OF THAT
 			PROBLEM AT noreply@materialuitodo.firebaseapp.com</noscript>
 		<div id="app"></div>
-		<script>
-			if ('serviceWorker' in navigator) {
-				window.addEventListener("load", () => {
-					navigator.serviceWorker.register('./serviceworker.js')
-						.then(reg => {
-							console.log('success -->', reg.scope)
-						})
-						.catch(err => {
-							console.log('Failure ->', err)
-						})
-				})
-			}
-		</script>
 	</body>
 
 </html>

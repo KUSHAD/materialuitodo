@@ -1,6 +1,6 @@
 {
-	"short_name": "MUITODO",
-	"name": "Material UI Todo",
+	"short_name": "Mui-Todo",
+	"name": "Mui-Todo",
 	"icons": [
 		{
 			"src": "./assets/logo-24x24.png",
