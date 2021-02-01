@@ -25,10 +25,10 @@ import { firebaseAuth, firebaseFirestore } from '../../../imports';
 import { AppErrorBoundary } from '../../Error';
 import { FeedBackScreen, ProfileScreen, TodoScreen } from '../../Screens/Main';
 import {
-	WriteFeedbackScreen,
-	CommentSectionScreen,
 	BugReportsSectionScreen,
-	FeatureRequestSectionScreen
+	CommentSectionScreen,
+	FeatureRequestSectionScreen,
+	WriteFeedbackScreen
 } from '../../Screens/Main/FeedBack';
 const drawerWidth = 240;
 
@@ -254,10 +254,21 @@ function SideNav(props) {
 							)}
 							exact
 						/>
-						<Route path="/feedback/comments" component={CommentSectionScreen} exact />
-						<Route path="/feedback/bug" component={BugReportsSectionScreen} exact />
-						<Route path="/feedback/feature" component={FeatureRequestSectionScreen} exact />
-
+						<Route
+							path="/feedback/comments"
+							component={CommentSectionScreen}
+							exact
+						/>
+						<Route
+							path="/feedback/bug"
+							component={BugReportsSectionScreen}
+							exact
+						/>
+						<Route
+							path="/feedback/feature"
+							component={FeatureRequestSectionScreen}
+							exact
+						/>
 					</BrowserRouter>
 				</main>
 			</AppErrorBoundary>
