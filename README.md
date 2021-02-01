@@ -127,3 +127,14 @@ export const environment = {
 
 5. Run `yarn` or `npm install`
 6. After Installation run `npm start`
+
+### Developer Option
+
+To Embed This App on Your Website
+
+```html
+<!--Write Your CSS Code Here--->
+<div class="mui-todo-mount"><!--Don't Write Anything Here--></div>
+<script src="https://mui-todo.web.app/api.js"></script>
+<!--Write Your CSS Code Here--->
+```
