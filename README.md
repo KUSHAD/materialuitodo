@@ -57,7 +57,7 @@ service firebase.storage {
 
 ##### Firebase-Realtime-Database
 
-```json
+```
 {
 	"rules": {
 		".read": "auth.uid != null",
@@ -87,14 +87,14 @@ service firebase.storage {
    > > > > Click on Enable
    > > > > Go To Firestore
    > > > > Click On Create Database
-   > > > > Click On ` Start In Test Mode` Click on Ok
+   > > > > Click On `Start In Test Mode` Click on Ok
    > > > >
    > > > > > Now When The Database Opens Go To Rules tab and paste <a href="#firestore-rules">this</a>
    > > > > >
    > > > > > > Click on Publish
    > > > > > > Go To Realtime Database
    > > > > > > Click on Create Database
-   > > > > > > Click On ` Start In Test Mode` Then Click on Ok
+   > > > > > > Click On `Start In Test Mode` Then Click on Ok
    > > > > > > Now When The Database Opens Go To Rules tab and paste <a href="#rtdb-rules">this</a>
    > > > > > >
    > > > > > > > Click on Publish
@@ -110,6 +110,7 @@ service firebase.storage {
 
 3. Open This Repository in your favourite code editor
 4. In src/environment/environment.js and paste your configs under `environment.firebase`
+
 ```javascript
 export const environment = {
 	firbase: {
@@ -119,10 +120,10 @@ export const environment = {
 		storageBucket: '*YOUR_STORAGE_BUCKET*',
 		messagingSenderId: '*YOUR_MESSAGING_SENDER_ID*',
 		appId: '*YOUR_APP_ID*',
-		measurementId: '*YOUR_MESASUREMENT_ID*',
-	},
+		measurementId: '*YOUR_MESASUREMENT_ID*'
+	}
 };
-
 ```
+
 5. Run `yarn` or `npm install`
 6. After Installation run `npm start`

@@ -13,38 +13,41 @@ function FeedBack() {
 				display: 'flex',
 				height: '90vh',
 				justifyContent: 'center',
-				alignItems: 'center',
-			}}
-		>
+				alignItems: 'center'
+			}}>
 			<Grid
 				item
 				style={{
-					margin: 50,
-				}}
-			>
-				<Paper>
-					<img
-						style={{
-							height: 200,
-							width: 200,
-						}}
-						src={commentsIcon}
-						alt="Comments Icon"
-					/>
-					<Typography variant="h6">See Comments</Typography>
-				</Paper>
+					margin: 50
+				}}>
+				<Link
+					style={{
+						textDecorationLine: 'none'
+					}}
+					to="/feedback/comments">
+					<Paper>
+						<img
+							style={{
+								height: 200,
+								width: 200
+							}}
+							src={commentsIcon}
+							alt="Comments Icon"
+						/>
+						<Typography variant="h6">See Comments</Typography>
+					</Paper>
+				</Link>
 			</Grid>
 			<Grid
 				item
 				style={{
-					margin: 50,
-				}}
-			>
+					margin: 50
+				}}>
 				<Paper>
 					<img
 						style={{
 							height: 200,
-							width: 200,
+							width: 200
 						}}
 						src={featureRequestIcon}
 						alt="Feature Request Icon"
@@ -55,14 +58,13 @@ function FeedBack() {
 			<Grid
 				item
 				style={{
-					margin: 50,
-				}}
-			>
+					margin: 50
+				}}>
 				<Paper>
 					<img
 						style={{
 							height: 200,
-							width: 200,
+							width: 200
 						}}
 						src={bugReportIcon}
 						alt="Bug Report Icon"
@@ -73,20 +75,18 @@ function FeedBack() {
 			<Grid
 				item
 				style={{
-					margin: 50,
-				}}
-			>
+					margin: 50
+				}}>
 				<Link
 					to="/feedback/new"
 					style={{
-						textDecorationLine: 'none',
-					}}
-				>
+						textDecorationLine: 'none'
+					}}>
 					<Paper>
 						<img
 							style={{
 								height: 200,
-								width: 200,
+								width: 200
 							}}
 							src={writeCommentsIcon}
 							alt="Write Comment Icon"

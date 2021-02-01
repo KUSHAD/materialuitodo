@@ -17,6 +17,8 @@ import {
 } from '../../../../imports';
 import { SearchBarComponent } from '../../../Components';
 import { AppErrorBoundary } from '../../../Error';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import DeleteIcon from '@material-ui/icons/Delete';
 function Todo() {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [noteTitle, setNoteTitle] = useState('');
@@ -147,6 +149,7 @@ function Todo() {
 												setViewModal(true);
 											}}
 										>
+											<VisibilityIcon />
 											View
 										</Button>
 										<Button
@@ -157,9 +160,11 @@ function Todo() {
 												setModalOpen(true);
 											}}
 										>
+											<UpdateIcon />
 											Update
 										</Button>
 										<Button onClick={() => deleteTodo(todo.todoId)}>
+											<DeleteIcon />
 											Delete
 										</Button>
 									</div>
