@@ -43,34 +43,46 @@ function FeedBack() {
 				style={{
 					margin: 50
 				}}>
-				<Paper>
-					<img
-						style={{
-							height: 200,
-							width: 200
-						}}
-						src={featureRequestIcon}
-						alt="Feature Request Icon"
-					/>
-					<Typography variant="h6">See Feature Requests</Typography>
-				</Paper>
+				<Link
+					style={{
+						textDecorationLine: 'none'
+					}}
+					to="/feedback/feature">
+					<Paper>
+						<img
+							style={{
+								height: 200,
+								width: 200
+							}}
+							src={featureRequestIcon}
+							alt="Feature Request Icon"
+						/>
+						<Typography variant="h6">See Feature Requests</Typography>
+					</Paper>
+				</Link>
 			</Grid>
 			<Grid
 				item
 				style={{
 					margin: 50
 				}}>
-				<Paper>
-					<img
-						style={{
-							height: 200,
-							width: 200
-						}}
-						src={bugReportIcon}
-						alt="Bug Report Icon"
-					/>
-					<Typography variant="h6">See Bug Reports</Typography>
-				</Paper>
+				<Link
+					style={{
+						textDecorationLine: 'none'
+					}}
+					to="/feedback/bug">
+					<Paper>
+						<img
+							style={{
+								height: 200,
+								width: 200
+							}}
+							src={bugReportIcon}
+							alt="Bug Report Icon"
+						/>
+						<Typography variant="h6">See Bug Reports</Typography>
+					</Paper>
+				</Link>
 			</Grid>
 			<Grid
 				item
