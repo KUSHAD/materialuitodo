@@ -11,7 +11,7 @@ import {
 	ListItem,
 	ListItemAvatar,
 	Toolbar,
-	Typography,
+	Typography
 } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
@@ -24,40 +24,43 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { firebaseAuth, firebaseFirestore } from '../../../imports';
 import { AppErrorBoundary } from '../../Error';
 import { FeedBackScreen, ProfileScreen, TodoScreen } from '../../Screens/Main';
-import { WriteFeedbackScreen } from '../../Screens/Main/FeedBack';
+import {
+	WriteFeedbackScreen,
+	CommentSectionScreen
+} from '../../Screens/Main/FeedBack';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		display: 'flex',
+		display: 'flex'
 	},
 	drawer: {
 		[theme.breakpoints.up('sm')]: {
 			width: drawerWidth,
-			flexShrink: 0,
-		},
+			flexShrink: 0
+		}
 	},
 	appBar: {
 		[theme.breakpoints.up('sm')]: {
 			width: `calc(100% - ${drawerWidth}px)`,
-			marginLeft: drawerWidth,
-		},
+			marginLeft: drawerWidth
+		}
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
 		[theme.breakpoints.up('sm')]: {
-			display: 'none',
-		},
+			display: 'none'
+		}
 	},
 	// necessary for content to be below app bar
 	toolbar: theme.mixins.toolbar,
 	drawerPaper: {
-		width: drawerWidth,
+		width: drawerWidth
 	},
 	content: {
 		flexGrow: 1,
-		padding: theme.spacing(3),
-	},
+		padding: theme.spacing(3)
+	}
 }));
 
 function SideNav(props) {
@@ -115,14 +118,13 @@ function SideNav(props) {
 					<ListItem
 						style={{
 							display: 'flex',
-							flexDirection: 'column',
-						}}
-					>
+							flexDirection: 'column'
+						}}>
 						<ListItemAvatar>
 							<Avatar
 								style={{
 									height: '200px',
-									width: '200px',
+									width: '200px'
 								}}
 								src={profileImage}
 								alt={firstName}
@@ -130,9 +132,8 @@ function SideNav(props) {
 						</ListItemAvatar>
 						<Typography
 							style={{
-								textAlign: 'center',
-							}}
-						>
+								textAlign: 'center'
+							}}>
 							{firstName} {lastName}
 						</Typography>
 					</ListItem>
@@ -182,12 +183,11 @@ function SideNav(props) {
 							aria-label="open drawer"
 							edge="start"
 							onClick={handleDrawerToggle}
-							className={classes.menuButton}
-						>
+							className={classes.menuButton}>
 							<MenuIcon />
 						</IconButton>
 						<Typography variant="h6" noWrap>
-							MATERIAL UI TODO
+							Mui-Todo
 						</Typography>
 					</Toolbar>
 				</AppBar>
@@ -200,23 +200,21 @@ function SideNav(props) {
 							open={mobileOpen}
 							onClose={handleDrawerToggle}
 							classes={{
-								paper: classes.drawerPaper,
+								paper: classes.drawerPaper
 							}}
 							ModalProps={{
-								keepMounted: true, // Better open performance on mobile.
-							}}
-						>
+								keepMounted: true // Better open performance on mobile.
+							}}>
 							{drawer}
 						</Drawer>
 					</Hidden>
 					<Hidden xsDown implementation="css">
 						<Drawer
 							classes={{
-								paper: classes.drawerPaper,
+								paper: classes.drawerPaper
 							}}
 							variant="permanent"
-							open
-						>
+							open>
 							{drawer}
 						</Drawer>
 					</Hidden>
@@ -254,6 +252,7 @@ function SideNav(props) {
 							)}
 							exact
 						/>
+						<Route path="/feedback/comments" component={CommentSectionScreen} />
 					</BrowserRouter>
 				</main>
 			</AppErrorBoundary>

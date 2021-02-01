@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.2",
-    "@material-ui/icons": "^4.11.2",
-    "firebase": "^8.2.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
+    "@material-ui/core": "4.11.3",
+    "@material-ui/icons": "4.11.2",
+    "firebase": "8.2.5",
+    "history": "5.0.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-router-dom": "5.2.0",
     "react-scripts": "4.0.1"
   },
   "scripts": {
@@ -40,20 +41,10 @@
     "firebase-tools": "^9.2.2",
     "typescript": "^4.1.3"
   },
-  "description": "A modern Todo App Made Using React , Material-ui and uses Firebase Hosting , Firebase Firestore , Firebase storage , Firebase Real time Database and Firebase Authentication",
+  "description": "",
   "main": "src/index.js",
   "repository": "git+https://github.com/KUSHAD/materialuitodo.git",
-  "keywords": [
-    "React",
-    "Material-ui",
-    "Responsive",
-    "Firebase",
-    "Firebase-hosting",
-    "firebase-authentication",
-    "firebase-firestore",
-    "firebase-realtime-database",
-    "firebase-storage"
-  ],
+  "keywords": [],
   "author": "Kushad Chakraborty",
   "license": "MIT",
   "bugs": {
