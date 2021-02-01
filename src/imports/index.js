@@ -1,3 +1,4 @@
+import 'firebase/analytics';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -12,3 +13,4 @@ export const firebaseFirestoreTimestamp = firebase.firestore.FieldValue.serverTi
 export const firebaseRealTimeDatabase = firebase.database();
 export const firebaseRealTimeDatabaseTimestamp =
 	firebase.database.ServerValue.TIMESTAMP;
+export const firebaseAnalytics = firebase.analytics();

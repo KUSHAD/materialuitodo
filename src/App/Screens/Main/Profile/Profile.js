@@ -5,9 +5,10 @@ import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import UpdateIcon from '@material-ui/icons/Update';
 import React, { Component } from 'react';
 import {
+	firebaseAnalytics,
 	firebaseAuth,
 	firebaseFirestore,
-	firebaseStorage,
+	firebaseStorage
 } from '../../../../imports';
 import { AppErrorBoundary } from '../../../Error';
 class Profile extends Component {
@@ -23,7 +24,7 @@ class Profile extends Component {
 			country: this.props.country,
 			phoneNumber: this.props.phoneNumber,
 			imageURL: this.props.imageURL,
-			imgUpload: '',
+			imgUpload: ''
 		};
 	}
 
@@ -45,7 +46,7 @@ class Profile extends Component {
 						downloadURL: this.state.imageURL,
 						zipCode: this.state.zipCode,
 						phoneNumber: this.state.phoneNumber,
-						country: this.state.country,
+						country: this.state.country
 					})
 					.then(() => {
 						console.log('success');
@@ -80,7 +81,7 @@ class Profile extends Component {
 								.collection('users')
 								.doc(firebaseAuth.currentUser.uid)
 								.update({
-									downloadURL: url,
+									downloadURL: url
 								})
 								.then(() => {
 									console.log('sucess');
@@ -104,6 +105,7 @@ class Profile extends Component {
 				firebaseAuth.currentUser
 					.delete()
 					.then(() => {
+						firebaseAnalytics.logEvent('user_delete_account');
 						console.log('deleted Succesfully');
 						window.location.reload();
 					})
@@ -122,9 +124,8 @@ class Profile extends Component {
 					style={{
 						display: 'flex',
 						flexDirection: 'column',
-						padding: 25,
-					}}
-				>
+						padding: 25
+					}}>
 					<Typography variant="h3" align="center">
 						Update Your Look
 					</Typography>
@@ -134,17 +135,16 @@ class Profile extends Component {
 								style={{
 									flexDirection: 'row',
 									justifyContent: 'space-around',
-									margin: 15,
-								}}
-							>
+									margin: 15
+								}}>
 								<input
 									style={{
-										display: 'none',
+										display: 'none'
 									}}
 									onChange={(e) => {
 										const image = e.target.files[0];
 										this.setState({
-											imgUpload: image,
+											imgUpload: image
 										});
 									}}
 									accept=".jpg,.jpeg,.png,.bimp,.gif"
@@ -154,8 +154,7 @@ class Profile extends Component {
 								<Button
 									onClick={() => this.fileInput.click()}
 									variant="contained"
-									color="primary"
-								>
+									color="primary">
 									<InsertDriveFileIcon />
 									Choose File
 								</Button>
@@ -164,8 +163,7 @@ class Profile extends Component {
 									onClick={this.onUploadPhoto}
 									focusRipple
 									color="primary"
-									variant="contained"
-								>
+									variant="contained">
 									<CloudUploadIcon />
 									Upload File
 								</Button>
@@ -179,21 +177,19 @@ class Profile extends Component {
 						flexDirection: 'column',
 						justifyContent: 'center',
 						alignItems: 'center',
-						textAlign: 'center',
-					}}
-				>
+						textAlign: 'center'
+					}}>
 					<Grid
 						style={{
-							flexDirection: 'row',
-						}}
-					>
+							flexDirection: 'row'
+						}}>
 						<TextField
 							label="First Name"
 							value={this.state.firstName}
 							variant="outlined"
 							type="text"
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							onChange={(e) => this.setState({ firstName: e.target.value })}
 						/>
@@ -203,7 +199,7 @@ class Profile extends Component {
 							variant="outlined"
 							type="text"
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							onChange={(e) => this.setState({ lastName: e.target.value })}
 						/>
@@ -214,27 +210,26 @@ class Profile extends Component {
 						variant="outlined"
 						type="text"
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 						onChange={(e) =>
 							this.setState({
-								userName: e.target.value.trim().replace(' ', ' '),
+								userName: e.target.value.trim().replace(' ', ' ')
 							})
 						}
 					/>
 
 					<Grid
 						style={{
-							flexDirection: 'row',
-						}}
-					>
+							flexDirection: 'row'
+						}}>
 						<TextField
 							label="Country"
 							value={this.state.country}
 							variant="outlined"
 							type="text"
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							onChange={(e) => this.setState({ country: e.target.value })}
 						/>
@@ -244,7 +239,7 @@ class Profile extends Component {
 							variant="outlined"
 							type="text"
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							onChange={(e) => this.setState({ zipCode: e.target.value })}
 						/>
@@ -255,7 +250,7 @@ class Profile extends Component {
 						variant="outlined"
 						type="tel"
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 					/>
 
@@ -266,15 +261,14 @@ class Profile extends Component {
 						type="email"
 						onChange={(e) => this.setState({ email: e.target.value })}
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 					/>
 
 					<Button
 						color="secondary"
 						variant="contained"
-						onClick={this.deleteAccount}
-					>
+						onClick={this.deleteAccount}>
 						<DeleteForeverIcon />
 						Delete Account
 					</Button>
@@ -282,7 +276,7 @@ class Profile extends Component {
 						onClick={this.onUpdateDetails}
 						color="primary"
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 						focusRipple
 						variant="contained"
@@ -294,8 +288,7 @@ class Profile extends Component {
 							this.state.email === this.props.email &&
 							this.state.zipCode === this.props.zipCode &&
 							this.state.phoneNumber === this.props.phoneNumber
-						}
-					>
+						}>
 						<UpdateIcon />
 						Update
 					</Button>

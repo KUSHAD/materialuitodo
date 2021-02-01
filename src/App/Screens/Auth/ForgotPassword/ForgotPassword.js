@@ -1,7 +1,7 @@
 import { Button, Grid, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { firebaseAuth } from '../../../../imports';
+import { firebaseAnalytics, firebaseAuth } from '../../../../imports';
 function ForgotPassword() {
 	const [email, setEmail] = useState('');
 	const history = useHistory();
@@ -9,8 +9,11 @@ function ForgotPassword() {
 	const sendPasswordResetEmail = () => {
 		firebaseAuth
 			.sendPasswordResetEmail(email)
-			.then(() => {
+			.then(async () => {
 				console.log('successfully sent email');
+				await firebaseAnalytics.logEvent('forgot_password', {
+					email: email
+				});
 				history.push('/login');
 			})
 			.catch((err) => {
@@ -25,16 +28,15 @@ function ForgotPassword() {
 				height: '100vh',
 				justifyContent: 'center',
 				alignItems: 'center',
-				flexDirection: 'column',
-			}}
-		>
+				flexDirection: 'column'
+			}}>
 			<TextField
 				type="email"
 				required
 				variant="outlined"
 				label="Email"
 				style={{
-					margin: 15,
+					margin: 15
 				}}
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
@@ -44,8 +46,7 @@ function ForgotPassword() {
 				disabled={!email}
 				onClick={sendPasswordResetEmail}
 				variant="contained"
-				color="primary"
-			>
+				color="primary">
 				Send Password Reset Email
 			</Button>
 			<Button onClick={() => history.push('/login')}>Back To Login</Button>

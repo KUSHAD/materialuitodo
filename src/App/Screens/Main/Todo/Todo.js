@@ -5,20 +5,21 @@ import {
 	Modal,
 	Paper,
 	TextField,
-	Typography,
+	Typography
 } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
+import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateIcon from '@material-ui/icons/Update';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import React, { useEffect, useState } from 'react';
 import {
+	firebaseAnalytics,
 	firebaseAuth,
 	firebaseFirestore,
-	firebaseFirestoreTimestamp,
+	firebaseFirestoreTimestamp
 } from '../../../../imports';
 import { SearchBarComponent } from '../../../Components';
 import { AppErrorBoundary } from '../../../Error';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteIcon from '@material-ui/icons/Delete';
 function Todo() {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [noteTitle, setNoteTitle] = useState('');
@@ -35,7 +36,7 @@ function Todo() {
 				title: noteTitle,
 				content: noteContent,
 				id: '',
-				createdAt: firebaseFirestoreTimestamp,
+				createdAt: firebaseFirestoreTimestamp
 			})
 			.then((res) => {
 				console.log('success');
@@ -43,10 +44,13 @@ function Todo() {
 					.collection(firebaseAuth.currentUser.uid)
 					.doc(res.id)
 					.update({
-						id: res.id,
+						id: res.id
 					})
 					.then(() => {
 						console.log('successfully updated row id');
+						firebaseAnalytics.logEvent('added_todo', {
+							by: firebaseAuth.currentUser.email
+						});
 						setNoteTitle('');
 						setNoteContent('');
 						setModalOpen(false);
@@ -69,7 +73,7 @@ function Todo() {
 							todoId: doc.data().id,
 							title: doc.data().title,
 							body: doc.data().content,
-							createdAt: doc.data().createdAt,
+							createdAt: doc.data().createdAt
 						});
 						setDisplayTodos(todos);
 					});
@@ -85,6 +89,9 @@ function Todo() {
 			.delete()
 			.then((res) => {
 				console.log('deleted Succesfully');
+				firebaseAnalytics.logEvent('deleted_todo', {
+					by: firebaseAuth.currentUser.uid
+				});
 				window.location.reload();
 			})
 			.catch((err) => {
@@ -126,12 +133,11 @@ function Todo() {
 							<Grid
 								style={{
 									margin: 2,
-									textAlign: 'center',
+									textAlign: 'center'
 								}}
 								item
 								xs={12}
-								key={todo.todoId}
-							>
+								key={todo.todoId}>
 								<Paper>
 									<Typography variant="h4">{todo.title}</Typography>
 									<Typography variant="body1">{todo.body}</Typography>
@@ -139,16 +145,14 @@ function Todo() {
 										style={{
 											display: 'flex',
 											flexDirection: 'row',
-											justifyContent: 'center',
-										}}
-									>
+											justifyContent: 'center'
+										}}>
 										<Button
 											onClick={() => {
 												setNoteTitle(todo.title);
 												setNoteContent(todo.body);
 												setViewModal(true);
-											}}
-										>
+											}}>
 											<VisibilityIcon />
 											View
 										</Button>
@@ -158,8 +162,7 @@ function Todo() {
 												setNoteContent(todo.body);
 												setIsUpdate(true);
 												setModalOpen(true);
-											}}
-										>
+											}}>
 											<UpdateIcon />
 											Update
 										</Button>
@@ -184,47 +187,41 @@ function Todo() {
 					right: 20,
 					bottom: 20,
 					left: 'auto',
-					position: 'fixed',
+					position: 'fixed'
 				}}
-				color="primary"
-			>
+				color="primary">
 				<Add />
 			</Fab>
 			<Modal
 				style={{
-					outline: 0,
+					outline: 0
 				}}
-				open={modalOpen}
-			>
+				open={modalOpen}>
 				<AppErrorBoundary>
 					<div
 						style={{
 							display: 'flex',
 							justifyContent: 'center',
-							alignItems: 'center',
-						}}
-					>
+							alignItems: 'center'
+						}}>
 						<Paper
 							style={{
 								height: '75%',
 								width: '100vw',
-								outline: 0,
-							}}
-						>
+								outline: 0
+							}}>
 							<Typography
 								variant="h6"
 								style={{
-									textAlign: 'center',
-								}}
-							>
+									textAlign: 'center'
+								}}>
 								{isUpdate ? 'Update This Todo' : 'Write Your Todo'}
 							</Typography>
 							<center>
 								<div
 									style={{
-										width: '80%',
-									}}
-								>
+										width: '80%'
+									}}>
 									<TextField
 										value={noteTitle}
 										onChange={(e) => setNoteTitle(e.target.value)}
@@ -241,7 +238,7 @@ function Todo() {
 										label="Todo Contents"
 										required
 										style={{
-											marginTop: 15,
+											marginTop: 15
 										}}
 										multiline
 										rows={15}
@@ -258,19 +255,17 @@ function Todo() {
 										setModalOpen(false);
 										setNoteContent('');
 										setNoteTitle('');
-									}}
-								>
+									}}>
 									X Close
 								</Button>
 								<Button
 									variant="contained"
 									style={{
-										margin: 15,
+										margin: 15
 									}}
 									color="primary"
 									disabled={!noteTitle || !noteContent}
-									onClick={addTodo}
-								>
+									onClick={addTodo}>
 									{isUpdate ? (
 										<div>
 											<UpdateIcon /> Update
@@ -288,39 +283,34 @@ function Todo() {
 			</Modal>
 			<Modal
 				style={{
-					outline: 0,
+					outline: 0
 				}}
-				open={viewModal}
-			>
+				open={viewModal}>
 				<AppErrorBoundary>
 					<div
 						style={{
 							display: 'flex',
 							justifyContent: 'center',
-							alignItems: 'center',
-						}}
-					>
+							alignItems: 'center'
+						}}>
 						<Paper
 							style={{
 								height: '75%',
 								width: '100vw',
-								outline: 0,
-							}}
-						>
+								outline: 0
+							}}>
 							<Typography
 								variant="h6"
 								style={{
-									textAlign: 'center',
-								}}
-							>
+									textAlign: 'center'
+								}}>
 								View This Todo
 							</Typography>
 							<center>
 								<div
 									style={{
-										width: '80%',
-									}}
-								>
+										width: '80%'
+									}}>
 									<TextField
 										disabled
 										value={noteTitle}
@@ -339,7 +329,7 @@ function Todo() {
 										label="Todo Contents"
 										required
 										style={{
-											marginTop: 15,
+											marginTop: 15
 										}}
 										multiline
 										rows={15}
@@ -355,8 +345,7 @@ function Todo() {
 										setViewModal(false);
 										setNoteContent('');
 										setNoteTitle('');
-									}}
-								>
+									}}>
 									X Close
 								</Button>
 							</center>

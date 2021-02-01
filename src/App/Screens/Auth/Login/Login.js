@@ -2,7 +2,7 @@ import { Button, Grid, TextField } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { firebaseAuth } from '../../../../imports';
+import { firebaseAnalytics, firebaseAuth } from '../../../../imports';
 import { AppErrorBoundary } from '../../../Error';
 
 class Login extends Component {
@@ -11,7 +11,7 @@ class Login extends Component {
 
 		this.state = {
 			email: '',
-			password: '',
+			password: ''
 		};
 		this.onLogin = this.onLogin.bind(this);
 	}
@@ -21,11 +21,14 @@ class Login extends Component {
 		e.preventDefault();
 		firebaseAuth
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
-			.then((result) => {
+			.then(async (result) => {
 				console.log('Success!!! ->', result);
+				await firebaseAnalytics.logEvent('login', {
+					email: this.state.email
+				});
 				this.setState({
 					email: '',
-					password: '',
+					password: ''
 				});
 				if (history) history.push('/');
 			})
@@ -44,9 +47,8 @@ class Login extends Component {
 						flexDirection: 'column',
 						justifyContent: 'center',
 						alignItems: 'center',
-						textAlign: 'center',
-					}}
-				>
+						textAlign: 'center'
+					}}>
 					<h1>Login</h1>
 					<LockOutlined />
 					<TextField
@@ -55,14 +57,14 @@ class Login extends Component {
 						variant="outlined"
 						type="email"
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 						value={this.state.email}
 						onChange={(e) => this.setState({ email: e.target.value })}
 					/>
 					<TextField
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 						label="Password"
 						required
@@ -75,13 +77,12 @@ class Login extends Component {
 					<Button
 						onClick={this.onLogin}
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 						focusRipple
 						variant="contained"
 						color="primary"
-						disabled={!this.state.email || !this.state.password}
-					>
+						disabled={!this.state.email || !this.state.password}>
 						Login
 					</Button>
 					<Button component={Link} to="/signup">

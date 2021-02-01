@@ -12,6 +12,7 @@ import {
 import { Close, Create } from '@material-ui/icons';
 import React, { useState } from 'react';
 import {
+	firebaseAnalytics,
 	firebaseAuth,
 	firebaseRealTimeDatabase,
 	firebaseRealTimeDatabaseTimestamp
@@ -40,6 +41,12 @@ const Write = (props) => {
 						console.log(e.message, e.name, e.stack);
 						alert(`Error -->${e.message}`);
 					} else {
+						firebaseAnalytics.logEvent('feedback_received', {
+							email: props.email,
+							name: fullName,
+							feedback: feedback,
+							createdAt: firebaseRealTimeDatabaseTimestamp
+						});
 						window.open(`/feedback`, '_self');
 					}
 				}

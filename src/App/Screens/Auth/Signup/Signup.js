@@ -2,7 +2,11 @@ import { Button, Grid, TextField } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { firebaseAuth, firebaseFirestore } from '../../../../imports';
+import {
+	firebaseAnalytics,
+	firebaseAuth,
+	firebaseFirestore
+} from '../../../../imports';
 import { AppErrorBoundary } from '../../../Error';
 class Signup extends Component {
 	constructor(props) {
@@ -17,7 +21,7 @@ class Signup extends Component {
 			confirmPassword: '',
 			country: '',
 			zipCode: '',
-			phoneNumber: '',
+			phoneNumber: ''
 		};
 		this.onSignup = this.onSignup.bind(this);
 	}
@@ -44,10 +48,14 @@ class Signup extends Component {
 							downloadURL: `https://avatars.dicebear.com/api/identicon/${this.state.email}.svg`,
 							zipCode: this.state.zipCode,
 							phoneNumber: this.state.phoneNumber,
-							country: this.state.country,
+							country: this.state.country
 						})
 						.then(async () => {
 							console.log('Success');
+							await firebaseAnalytics.logEvent('sign_up', {
+								name: fullName,
+								email: this.state.email
+							});
 							this.setState({
 								firstName: '',
 								lastName: '',
@@ -57,9 +65,10 @@ class Signup extends Component {
 								confirmPassword: '',
 								country: '',
 								zipCode: '',
-								phoneNumber: '',
+								phoneNumber: ''
 							});
 							await firebaseAuth.currentUser.sendEmailVerification();
+
 							if (history) history.push('/');
 						})
 						.catch((err) => {
@@ -85,23 +94,21 @@ class Signup extends Component {
 						flexDirection: 'column',
 						justifyContent: 'center',
 						alignItems: 'center',
-						textAlign: 'center',
-					}}
-				>
+						textAlign: 'center'
+					}}>
 					<h1>Signup</h1>
 					<LockOutlined />
 					<Grid
 						style={{
-							flexDirection: 'row',
-						}}
-					>
+							flexDirection: 'row'
+						}}>
 						<TextField
 							label="First Name"
 							required
 							variant="outlined"
 							type="text"
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							value={this.state.firstName}
 							onChange={(e) => this.setState({ firstName: e.target.value })}
@@ -112,7 +119,7 @@ class Signup extends Component {
 							variant="outlined"
 							type="text"
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							value={this.state.lastName}
 							onChange={(e) => this.setState({ lastName: e.target.value })}
@@ -125,7 +132,7 @@ class Signup extends Component {
 						variant="outlined"
 						type="text"
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 						value={this.state.userName}
 						onChange={(e) =>
@@ -134,14 +141,13 @@ class Signup extends Component {
 					/>
 					<Grid
 						style={{
-							flexDirection: 'row',
-						}}
-					>
+							flexDirection: 'row'
+						}}>
 						<TextField
 							label="Country"
 							required
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							variant="outlined"
 							type="text"
@@ -153,7 +159,7 @@ class Signup extends Component {
 							label="Zip Code"
 							required
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							variant="outlined"
 							type="text"
@@ -164,13 +170,13 @@ class Signup extends Component {
 						label="Phone Number"
 						required
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 						variant="outlined"
 						type="tel"
 						onChange={(e) =>
 							this.setState({
-								phoneNumber: e.target.value.trim().replace(' ', ''),
+								phoneNumber: e.target.value.trim().replace(' ', '')
 							})
 						}
 					/>
@@ -180,7 +186,7 @@ class Signup extends Component {
 						variant="outlined"
 						type="email"
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 						value={this.state.email}
 						onChange={(e) => this.setState({ email: e.target.value })}
@@ -188,12 +194,11 @@ class Signup extends Component {
 					/>
 					<Grid
 						style={{
-							flexDirection: 'row',
-						}}
-					>
+							flexDirection: 'row'
+						}}>
 						<TextField
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							label="Password"
 							required
@@ -205,7 +210,7 @@ class Signup extends Component {
 						/>
 						<TextField
 							style={{
-								margin: '15px',
+								margin: '15px'
 							}}
 							label="Confirm Password"
 							required
@@ -220,7 +225,7 @@ class Signup extends Component {
 					</Grid>
 					<Button
 						style={{
-							margin: '15px',
+							margin: '15px'
 						}}
 						focusRipple
 						variant="contained"
@@ -236,8 +241,7 @@ class Signup extends Component {
 							!this.state.email ||
 							!this.state.password ||
 							!this.state.confirmPassword
-						}
-					>
+						}>
 						Signup
 					</Button>
 					<Button component={Link} to="/login">
