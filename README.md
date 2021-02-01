@@ -138,3 +138,7 @@ To Embed This App on Your Website
 <script src="https://mui-todo.web.app/api.js"></script>
 <!--Write Your CSS Code Here--->
 ```
+
+### To Contribute
+
+To see Rules of contributing check <a href="./contributing.md">contributing.md</a>
