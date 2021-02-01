@@ -7,14 +7,14 @@ import {
 	Paper,
 	Select,
 	TextField,
-	Typography,
+	Typography
 } from '@material-ui/core';
 import { Close, Create } from '@material-ui/icons';
 import React, { useState } from 'react';
 import {
 	firebaseAuth,
 	firebaseRealTimeDatabase,
-	firebaseRealTimeDatabaseTimestamp,
+	firebaseRealTimeDatabaseTimestamp
 } from '../../../../../imports';
 import { AppErrorBoundary } from '../../../../Error';
 const Write = (props) => {
@@ -33,7 +33,7 @@ const Write = (props) => {
 					name: fullName,
 					userName: userName,
 					feedback: feedback,
-					createdAt: firebaseRealTimeDatabaseTimestamp,
+					createdAt: firebaseRealTimeDatabaseTimestamp
 				},
 				(e) => {
 					if (e) {
@@ -53,25 +53,24 @@ const Write = (props) => {
 						display: 'flex',
 						justifyContent: 'center',
 						margin: 15,
-						flexDirection: 'column',
-					}}
-				>
+						flexDirection: 'column'
+					}}>
 					<Typography variant="h3">Write Your Feedback</Typography>
 					<AppErrorBoundary>
 						<Grid
 							style={{
-								flexDirection: 'row',
-							}}
-						>
+								flexDirection: 'row'
+							}}>
 							<InputLabel>Choose Type Of Feedback</InputLabel>
 							<Select
 								value={feedbackType}
 								onChange={(e) => setFeedbackType(e.target.value)}
 								fullWidth
 								placeholder="Type Of Feedback"
-								variant="outlined"
-							>
-								<MenuItem value="">---Choose---</MenuItem>
+								variant="outlined">
+								<MenuItem value="">
+									<em>---Choose---</em>
+								</MenuItem>
 								<MenuItem value="comment">Comment</MenuItem>
 								<MenuItem value="bugReport">Bug Report</MenuItem>
 								<MenuItem value="featureRequest">Feature Request</MenuItem>
@@ -79,10 +78,10 @@ const Write = (props) => {
 							<Grid
 								style={{
 									flexDirection: 'row',
-								}}
-							>
-								<InputLabel>Write Your Feedback</InputLabel>
+									marginTop: 15
+								}}>
 								<TextField
+									label="Write Your Feedback"
 									value={feedback}
 									onChange={(e) => setFeedback(e.target.value)}
 									placeholder="Write Your Feedback"
@@ -96,23 +95,20 @@ const Write = (props) => {
 						</Grid>
 						<Grid
 							style={{
-								flexDirection: 'row',
-							}}
-						>
+								flexDirection: 'row'
+							}}>
 							<center>
 								<Button
 									variant="contained"
 									color="secondary"
-									onClick={() => window.open('/feedback', '_self')}
-								>
+									onClick={() => window.open('/feedback', '_self')}>
 									<Close /> Close
 								</Button>
 								<Button
 									onClick={submitFeedback}
 									disabled={!feedback || !feedbackType}
 									variant="contained"
-									color="primary"
-								>
+									color="primary">
 									<Create />
 									Add
 								</Button>
