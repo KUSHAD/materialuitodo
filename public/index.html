@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="utf-8" />
 
@@ -9,40 +10,99 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-			rel="stylesheet"
-		/>
+			rel="stylesheet" />
 		<link rel="manifest" href="./manifest.json" />
-		<link
-			rel="shortcut-icon"
-			type="image/png"
-			href="./assets/logo-192x192.png"
-		/>
+		<link rel="shortcut-icon" type="image/png" href="./assets/logo-192x192.png" />
 		<link rel="icon" type="image/png" href="./assets/logo-64x64.png" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<link rel="apple-touch-icon" href="./assets/logo-192x162.png" />
 		<meta name="apple-mobile-web-app-title" content="PMR" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<meta
-			name="description"
-			content="A modern Todo App Made Using React , Material-ui and uses Firebase Hosting , Firebase Firestore , Firebase storage , Firebase Real time Database and Firebase Authentication"
-		/>
+		<meta name="description"
+			content="A modern Todo App Made Using React , Material-ui and uses Firebase Hosting , Firebase Firestore , Firebase storage , Firebase Real time Database and Firebase Authentication" />
 		<style>
 			* {
 				font-family: 'Roboto', sans-serif;
 			}
+
+			.container {
+				display: flex;
+				height: 100vh;
+				justify-content: center;
+				align-items: center;
+			}
+
 		</style>
 	</head>
 
 	<body>
-		<noscript
-			>SORRY TO SAY BUT THIS APP IS CURRENTLY FACING SOME PROBLEMS FROM YOUR
+		<noscript>SORRY TO SAY BUT THIS APP IS CURRENTLY FACING SOME PROBLEMS FROM YOUR
 			END. PLEASE WAIT ..... FOR SOME TIME . IF THE APP DOESN'T LOAD IN 3
 			MINUTES PLEASE CLOSE THE APP AND THEN TURN ON THE MOBILE DATA AND THEN
 			OPEN THIS APP . IF NONE OF THESE METHODS ARE WORKING PLEASE SEND THE TEAM
 			A CRASH REPORT WITH FULL DETAILS ABOUT WHAT HAD HAPPENED , WHAT YOU TRIED
 			AND IT WILL ALSO BE GREAT IF YOU CAN SEND SCREENSHOTS OF THAT PROBLEM AT
-			noreply@materialuitodo.firebaseapp.com</noscript
-		>
-		<div id="app"></div>
+			noreply@materialuitodo.firebaseapp.com</noscript>
+		<div id="app">
+			<div class="container">
+				<div id="loader">
+					<canvas id="circularLoader" width="200" height="200"></canvas>
+				</div>
+			</div>
+			<script>
+				var ctx = document.getElementById('circularLoader').getContext('2d');
+				var al = 0;
+				var start = 4.72;
+				var cw = ctx.canvas.width;
+				var ch = ctx.canvas.height;
+				var diff;
+				function progressSim() {
+					diff = ((al / 100) * Math.PI * 2 * 10).toFixed(2);
+					ctx.clearRect(0, 0, cw, ch);
+					ctx.lineWidth = 17;
+					ctx.fillStyle = '#303f9f';
+					ctx.strokeStyle = "#303f9f";
+					ctx.textAlign = "center";
+					ctx.font = "10px monospace";
+					ctx.fillText("Mui-Todo is Loading ...", cw * .52, ch * .5 + 5, cw + 12);
+					ctx.beginPath();
+					ctx.arc(100, 100, 75, start, diff / 10 + start, false);
+					ctx.stroke();
+					if (al >= 100) {
+						clearTimeout(sim);
+						// Add scripting here that will run when progress completes
+					}
+					al++;
+				}
+				var sim = setInterval(progressSim, 50);
+			</script>
+		</div>
+		<script>
+			if ('serviceWorker' in navigator) {
+				//if the browser supports serviceWorkers
+				window.addEventListener('load', function () {
+					navigator.serviceWorker
+						//registers the worker.js file you just made
+						.register('worker.js')
+						.then(
+							function (registration) {
+								console.log(
+									'Worker registration successful',
+									registration.scope
+								);
+							},
+							function (err) {
+								console.log('Worker registration failed', err);
+							}
+						)
+						.catch(function (err) {
+							console.log(err);
+						});
+				});
+			} else {
+				console.log('Service Worker is not supported by browser.');
+			}
+		</script>
 	</body>
+
 </html>

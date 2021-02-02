@@ -3,17 +3,18 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { render } from 'react-dom';
 import App from './App/App';
+import * as serviceWorker from './serviceWorker';
 const appElement = document.getElementById('app');
 
 const theme = createMuiTheme({
 	palette: {
 		primary: {
-			main: blue[900],
+			main: blue[900]
 		},
 		secondary: {
-			main: red[600],
-		},
-	},
+			main: red[600]
+		}
+	}
 });
 
 render(
@@ -34,3 +35,5 @@ render(
 		);
 	}
 );
+
+serviceWorker.register();
