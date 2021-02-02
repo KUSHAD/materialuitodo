@@ -2,6 +2,7 @@ import { blue, red } from '@material-ui/core/colors';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { render } from 'react-dom';
+import ReactPWAInstallProvider from 'react-pwa-install';
 import App from './App/App';
 import * as serviceWorker from './serviceWorker';
 const appElement = document.getElementById('app');
@@ -18,9 +19,11 @@ const theme = createMuiTheme({
 });
 
 render(
-	<ThemeProvider theme={theme}>
-		<App />
-	</ThemeProvider>,
+	<ReactPWAInstallProvider>
+		<ThemeProvider theme={theme}>
+			<App />
+		</ThemeProvider>
+	</ReactPWAInstallProvider>,
 	appElement,
 	() => {
 		console.log(

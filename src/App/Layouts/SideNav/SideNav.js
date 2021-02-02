@@ -17,10 +17,13 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import FeedbackIcon from '@material-ui/icons/Feedback';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import MenuIcon from '@material-ui/icons/Menu';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import React, { useEffect, useState } from 'react';
+import { useReactPWAInstall } from 'react-pwa-install';
 import { BrowserRouter, Route } from 'react-router-dom';
+import appLogo from '../../../assets/favicon.png';
 import { firebaseAuth, firebaseFirestore } from '../../../imports';
 import { AppErrorBoundary } from '../../Error';
 import { FeedBackScreen, ProfileScreen, TodoScreen } from '../../Screens/Main';
@@ -78,7 +81,7 @@ function SideNav(props) {
 	const [zipCode, setZipCode] = useState('');
 	const [country, setCountry] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
-
+	const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
@@ -111,7 +114,23 @@ function SideNav(props) {
 				}
 			});
 	}, []);
-
+	const handlePWAInstallButtonClick = () => {
+		pwaInstall({
+			title: 'Install Mui-Todo On Your Device',
+			logo: appLogo,
+			features: (
+				<ul>
+					<li>Add Mui-Todo On Your Homescreen or Desktop</li>
+					<li>Add Your Todos Directly From Your Homescreen</li>
+					<li>Sync Your Todos and Notes With Multiple Devices</li>
+					<li>Works offline</li>
+				</ul>
+			),
+			description: `A modern Todo App Made Using React , Material-ui and uses Firebase Hosting , Firebase Firestore , Firebase storage , Firebase Real time Database and Firebase Authentication Now Works Offline !!!`
+		})
+			.then(() => console.log('User Installed The App'))
+			.catch(() => console.log('User Opted Out From Installing'));
+	};
 	const drawer = (
 		<div>
 			<AppErrorBoundary>
@@ -191,9 +210,25 @@ function SideNav(props) {
 						<Typography variant="h6" noWrap>
 							Mui-Todo
 						</Typography>
+						{supported() && !isInstalled() && (
+							<Button
+								onClick={handlePWAInstallButtonClick}
+								style={{
+									backgroundColor: '#00ff11',
+									color: '#fff',
+									margin: 0,
+									top: 'auto',
+									right: 20,
+									left: 'auto',
+									position: 'fixed'
+								}}>
+								<GetAppIcon />
+								Install
+							</Button>
+						)}
 					</Toolbar>
 				</AppBar>
-				<nav className={classes.drawer} aria-label="mailbox folders">
+				<nav className={classes.drawer}>
 					<Hidden smUp implementation="css">
 						<Drawer
 							container={container}
