@@ -28,5 +28,5 @@ yarn-error.log*
 
 firebase-*
 
-#environment
-src/environment/environment.js
+#.env
+.env

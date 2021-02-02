@@ -109,22 +109,7 @@ service firebase.storage {
    > > > > > > > > Copy The Firebase Configs
 
 3. Open This Repository in your favourite code editor
-4. In src/environment/environment.js and paste your configs under `environment.firebase`
-
-```javascript
-export const environment = {
-	firbase: {
-		apiKey: '*YOUR_API_KEY*',
-		authDomain: '*YOUR_AUTH_DOMAIN*',
-		projectId: '*YOUR_PROJECT_ID*',
-		storageBucket: '*YOUR_STORAGE_BUCKET*',
-		messagingSenderId: '*YOUR_MESSAGING_SENDER_ID*',
-		appId: '*YOUR_APP_ID*',
-		measurementId: '*YOUR_MESASUREMENT_ID*'
-	}
-};
-```
-
+4. Rename .env.example to .env and Paste the Configs
 5. Run `yarn` or `npm install`
 6. After Installation run `npm start`
 
