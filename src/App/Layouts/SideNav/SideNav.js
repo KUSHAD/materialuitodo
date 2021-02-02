@@ -128,7 +128,7 @@ function SideNav(props) {
 			),
 			description: `A modern Todo App Made Using React , Material-ui and uses Firebase Hosting , Firebase Firestore , Firebase storage , Firebase Real time Database and Firebase Authentication Now Works Offline !!!`
 		})
-			.then(() => console.log('User Installed The App'))
+			.then(() => window.location.reload())
 			.catch(() => console.log('User Opted Out From Installing'));
 	};
 	const drawer = (
