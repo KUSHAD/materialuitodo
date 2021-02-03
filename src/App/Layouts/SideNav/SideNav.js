@@ -3,6 +3,7 @@ import {
 	Avatar,
 	Button,
 	CssBaseline,
+	Dialog,
 	Divider,
 	Drawer,
 	Hidden,
@@ -14,6 +15,7 @@ import {
 	Typography
 } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Share } from '@material-ui/icons';
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import FeedbackIcon from '@material-ui/icons/Feedback';
@@ -81,6 +83,7 @@ function SideNav(props) {
 	const [zipCode, setZipCode] = useState('');
 	const [country, setCountry] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
+	const [shareModalOpen, setShareModalOpen] = useState(false);
 	const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
@@ -130,6 +133,29 @@ function SideNav(props) {
 		})
 			.then(() => window.location.reload())
 			.catch(() => console.log('User Opted Out From Installing'));
+	};
+	const shareApp = () => {
+		if (navigator.share) {
+			navigator.share({
+				title: 'Share Mui-Todo',
+				text: `Hey Guys I Use This Awesome App Called Mui-Todo. Link Below`,
+				url: 'https://mui-todo.web.app'
+			});
+		} else {
+			setShareModalOpen(true);
+		}
+	};
+	const shareTextCopy = () => {
+		const text = `Hey Guys I Use This Awesome App Called Mui-Todo. Check This App Now at https://mui-todo.web.app`;
+		navigator.clipboard.writeText(text).then(
+			function () {
+				console.log('Async: Copying to clipboard was successful!');
+				setShareModalOpen(false);
+			},
+			function (err) {
+				console.error('Async: Could not copy text: ', err);
+			}
+		);
 	};
 	const drawer = (
 		<div>
@@ -185,6 +211,7 @@ function SideNav(props) {
 							<ExitToAppIcon /> Logout
 						</Button>
 					</ListItem>
+					<Divider />
 					{supported() && !isInstalled() && (
 						<Button
 							fullWidth
@@ -197,6 +224,9 @@ function SideNav(props) {
 							Install
 						</Button>
 					)}
+					<Button onClick={shareApp} fullWidth>
+						<Share /> Share This App
+					</Button>
 				</List>
 			</AppErrorBoundary>
 		</div>
@@ -238,6 +268,18 @@ function SideNav(props) {
 								Install
 							</Button>
 						)}
+						<IconButton
+							style={{
+								margin: 0,
+								top: 'auto',
+								right: 120,
+								left: 'auto',
+								position: 'fixed'
+							}}
+							onClick={shareApp}
+							color="inherit">
+							<Share />
+						</IconButton>
 					</Toolbar>
 				</AppBar>
 				<nav className={classes.drawer}>
@@ -319,6 +361,28 @@ function SideNav(props) {
 					</BrowserRouter>
 				</main>
 			</AppErrorBoundary>
+			<Dialog
+				style={{
+					textAlign: 'center'
+				}}
+				open={shareModalOpen}>
+				<Typography variant="h6">
+					Sad To Say But Your Browser Doesn't Support Web Sharing
+				</Typography>
+				<Typography variant="h6">Don't Worry Click The Button Below</Typography>
+				<Typography variant="h6">
+					It Will Copy A Text And Then Share It With Your Friends
+				</Typography>
+				<Button onClick={shareTextCopy} variant="contained" color="primary">
+					Copy Text
+				</Button>
+				<Button
+					onClick={() => setShareModalOpen(false)}
+					variant="contained"
+					color="secondary">
+					Close
+				</Button>
+			</Dialog>
 		</div>
 	);
 }
