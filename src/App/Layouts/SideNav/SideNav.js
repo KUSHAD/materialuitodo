@@ -185,6 +185,18 @@ function SideNav(props) {
 							<ExitToAppIcon /> Logout
 						</Button>
 					</ListItem>
+					{supported() && !isInstalled() && (
+						<Button
+							fullWidth
+							onClick={handlePWAInstallButtonClick}
+							style={{
+								backgroundColor: '#00ff11',
+								color: '#fff'
+							}}>
+							<GetAppIcon />
+							Install
+						</Button>
+					)}
 				</List>
 			</AppErrorBoundary>
 		</div>
