@@ -1,5 +1,5 @@
 //name of your app
-const CACHE_NAME = 'mui-todo';
+const CACHE_NAME = 'mui-todo-v1';
 //include all routes used in app
 const urlsToCache = [
 	'/',
@@ -42,7 +42,7 @@ self.addEventListener('fetch', (event) => {
 
 // Update a service worker
 self.addEventListener('activate', (event) => {
-	var cacheWhitelist = ['mui-todo'];
+	var cacheWhitelist = ['mui-todo-v1'];
 	event.waitUntil(
 		caches.keys().then((cacheNames) => {
 			return Promise.all(
