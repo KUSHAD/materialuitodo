@@ -40,7 +40,6 @@ class Signup extends Component {
 						.doc(firebaseAuth.currentUser.uid)
 						.set({
 							email: this.state.email.trim(),
-							password: this.state.password,
 							userName: this.state.userName,
 							firstName: this.state.firstName.trim(),
 							lastName: this.state.lastName.trim(),
