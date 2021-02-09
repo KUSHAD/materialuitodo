@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from '@material-ui/core';
+import { Button, Checkbox, Grid, TextField } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -21,7 +21,8 @@ class Signup extends Component {
 			confirmPassword: '',
 			country: '',
 			zipCode: '',
-			phoneNumber: ''
+			phoneNumber: '',
+			passwordVisible: false
 		};
 		this.onSignup = this.onSignup.bind(this);
 	}
@@ -64,7 +65,8 @@ class Signup extends Component {
 								confirmPassword: '',
 								country: '',
 								zipCode: '',
-								phoneNumber: ''
+								phoneNumber: '',
+								passwordVisible: false
 							});
 							await firebaseAuth.currentUser.sendEmailVerification();
 
@@ -124,7 +126,6 @@ class Signup extends Component {
 							onChange={e => this.setState({ lastName: e.target.value })}
 						/>
 					</Grid>
-
 					<TextField
 						label='User Name'
 						required
@@ -202,7 +203,7 @@ class Signup extends Component {
 							label='Password'
 							required
 							variant='outlined'
-							type='password'
+							type={this.state.passwordVisible ? 'text' : 'password'}
 							value={this.state.password}
 							onChange={e => this.setState({ password: e.target.value })}
 							onPasteCapture={e => e.preventDefault()}
@@ -214,11 +215,31 @@ class Signup extends Component {
 							label='Confirm Password'
 							required
 							variant='outlined'
-							type='password'
+							type={this.state.passwordVisible ? 'text' : 'password'}
 							value={this.state.confirmPassword}
 							onChange={e => this.setState({ confirmPassword: e.target.value })}
 							onPasteCapture={e => e.preventDefault()}
 						/>
+					</Grid>
+					<Grid
+						style={{
+							flexDirection: 'row'
+						}}>
+						<Checkbox
+							onChange={() => {
+								if (this.state.passwordVisible) {
+									this.setState({
+										passwordVisible: false
+									});
+								} else {
+									this.setState({
+										passwordVisible: true
+									});
+								}
+							}}
+							color='primary'
+						/>
+						Show Password
 					</Grid>
 					<Button
 						style={{

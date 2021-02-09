@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from '@material-ui/core';
+import { Button, Checkbox, Grid, TextField } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,8 @@ class Login extends Component {
 
 		this.state = {
 			email: '',
-			password: ''
+			password: '',
+			passwordVisible: false
 		};
 		this.onLogin = this.onLogin.bind(this);
 	}
@@ -69,11 +70,31 @@ class Login extends Component {
 						label='Password'
 						required
 						variant='outlined'
-						type='password'
+						type={this.state.passwordVisible ? 'text' : 'password'}
 						value={this.state.password}
 						onChange={e => this.setState({ password: e.target.value })}
 						onPasteCapture={e => e.preventDefault()}
 					/>
+					<Grid
+						style={{
+							flexDirection: 'row'
+						}}>
+						<Checkbox
+							onChange={() => {
+								if (this.state.passwordVisible) {
+									this.setState({
+										passwordVisible: false
+									});
+								} else {
+									this.setState({
+										passwordVisible: true
+									});
+								}
+							}}
+							color='primary'
+						/>
+						Show Password
+					</Grid>
 					<Button
 						onClick={this.onLogin}
 						style={{
