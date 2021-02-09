@@ -231,7 +231,6 @@ function SideNav(props) {
 						style={{
 							margin: 0,
 							bottom: 'auto',
-							// right: 20,
 							left: 'auto',
 							position: 'fixed'
 						}}>
