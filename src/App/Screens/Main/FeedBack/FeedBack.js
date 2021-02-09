@@ -24,7 +24,7 @@ function FeedBack() {
 					style={{
 						textDecorationLine: 'none'
 					}}
-					to="/feedback/comments">
+					to='/feedback/comments'>
 					<Paper>
 						<img
 							style={{
@@ -32,9 +32,9 @@ function FeedBack() {
 								width: 200
 							}}
 							src={commentsIcon}
-							alt="Comments Icon"
+							alt='Comments Icon'
 						/>
-						<Typography variant="h6">See Comments</Typography>
+						<Typography variant='h6'>See Comments</Typography>
 					</Paper>
 				</Link>
 			</Grid>
@@ -47,7 +47,7 @@ function FeedBack() {
 					style={{
 						textDecorationLine: 'none'
 					}}
-					to="/feedback/feature">
+					to='/feedback/feature'>
 					<Paper>
 						<img
 							style={{
@@ -55,9 +55,9 @@ function FeedBack() {
 								width: 200
 							}}
 							src={featureRequestIcon}
-							alt="Feature Request Icon"
+							alt='Feature Request Icon'
 						/>
-						<Typography variant="h6">See Feature Requests</Typography>
+						<Typography variant='h6'>See Feature Requests</Typography>
 					</Paper>
 				</Link>
 			</Grid>
@@ -70,7 +70,7 @@ function FeedBack() {
 					style={{
 						textDecorationLine: 'none'
 					}}
-					to="/feedback/bug">
+					to='/feedback/bug'>
 					<Paper>
 						<img
 							style={{
@@ -78,9 +78,9 @@ function FeedBack() {
 								width: 200
 							}}
 							src={bugReportIcon}
-							alt="Bug Report Icon"
+							alt='Bug Report Icon'
 						/>
-						<Typography variant="h6">See Bug Reports</Typography>
+						<Typography variant='h6'>See Bug Reports</Typography>
 					</Paper>
 				</Link>
 			</Grid>
@@ -90,7 +90,7 @@ function FeedBack() {
 					margin: 50
 				}}>
 				<Link
-					to="/feedback/new"
+					to='/feedback/new'
 					style={{
 						textDecorationLine: 'none'
 					}}>
@@ -101,9 +101,9 @@ function FeedBack() {
 								width: 200
 							}}
 							src={writeCommentsIcon}
-							alt="Write Comment Icon"
+							alt='Write Comment Icon'
 						/>
-						<Typography variant="h6">Write a Feedback</Typography>
+						<Typography variant='h6'>Write a Feedback</Typography>
 					</Paper>
 				</Link>
 			</Grid>

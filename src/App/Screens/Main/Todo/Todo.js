@@ -38,7 +38,7 @@ function Todo() {
 				id: '',
 				createdAt: firebaseFirestoreTimestamp
 			})
-			.then((res) => {
+			.then(res => {
 				console.log('success');
 				firebaseFirestore
 					.collection(firebaseAuth.currentUser.uid)
@@ -56,19 +56,19 @@ function Todo() {
 						setModalOpen(false);
 						window.location.reload();
 					})
-					.catch((e) => console.log('err', e.message));
+					.catch(e => console.log('err', e.message));
 			})
-			.catch((e) => console.log('err', e.message));
+			.catch(e => console.log('err', e.message));
 	};
 	useEffect(() => {
 		firebaseFirestore
 			.collection(firebaseAuth.currentUser.uid)
 			.orderBy('createdAt')
 			.get()
-			.then((data) => {
+			.then(data => {
 				if (!data.empty) {
 					let todos = [];
-					data.forEach((doc) => {
+					data.forEach(doc => {
 						todos.push({
 							todoId: doc.data().id,
 							title: doc.data().title,
@@ -82,19 +82,19 @@ function Todo() {
 				}
 			});
 	}, []);
-	const deleteTodo = (row) => {
+	const deleteTodo = row => {
 		firebaseFirestore
 			.collection(firebaseAuth.currentUser.uid)
 			.doc(row)
 			.delete()
-			.then((res) => {
+			.then(res => {
 				console.log('deleted Succesfully');
 				firebaseAnalytics.logEvent('deleted_todo', {
 					by: firebaseAuth.currentUser.uid
 				});
 				window.location.reload();
 			})
-			.catch((err) => {
+			.catch(err => {
 				console.log('err deleting todo -->', err.message);
 			});
 	};
@@ -102,10 +102,10 @@ function Todo() {
 		<>
 			<AppErrorBoundary>
 				<SearchBarComponent
-					label="Search Your Todos"
+					label='Search Your Todos'
 					fullWidth
 					value={searchTerm}
-					onChange={(e) => {
+					onChange={e => {
 						const searchValue = e.target.value;
 						const filteredSearchValue = searchValue.replace(
 							/[\[\]&\/\\#,+@!^()$~%.'":*?<>\-{}_;`\=1234567890|]/g,
@@ -124,12 +124,12 @@ function Todo() {
 			<AppErrorBoundary>
 				<Grid container>
 					{displayTodos
-						.filter((todo) =>
-							searchTerms.every((word) => {
+						.filter(todo =>
+							searchTerms.every(word => {
 								return todo.title.toUpperCase().indexOf(word) > -1;
 							})
 						)
-						.map((todo) => (
+						.map(todo => (
 							<Grid
 								style={{
 									margin: 2,
@@ -139,8 +139,8 @@ function Todo() {
 								xs={12}
 								key={todo.todoId}>
 								<Paper>
-									<Typography variant="h4">{todo.title}</Typography>
-									<Typography variant="body1">{todo.body}</Typography>
+									<Typography variant='h4'>{todo.title}</Typography>
+									<Typography variant='body1'>{todo.body}</Typography>
 									<div
 										style={{
 											display: 'flex',
@@ -189,7 +189,7 @@ function Todo() {
 					left: 'auto',
 					position: 'fixed'
 				}}
-				color="primary">
+				color='primary'>
 				<Add />
 			</Fab>
 			<Modal
@@ -211,7 +211,7 @@ function Todo() {
 								outline: 0
 							}}>
 							<Typography
-								variant="h6"
+								variant='h6'
 								style={{
 									textAlign: 'center'
 								}}>
@@ -224,18 +224,18 @@ function Todo() {
 									}}>
 									<TextField
 										value={noteTitle}
-										onChange={(e) => setNoteTitle(e.target.value)}
+										onChange={e => setNoteTitle(e.target.value)}
 										fullWidth
-										variant="outlined"
-										label="Todo Title"
+										variant='outlined'
+										label='Todo Title'
 										required
 									/>
 									<TextField
 										value={noteContent}
-										onChange={(e) => setNoteContent(e.target.value)}
+										onChange={e => setNoteContent(e.target.value)}
 										fullWidth
-										variant="outlined"
-										label="Todo Contents"
+										variant='outlined'
+										label='Todo Contents'
 										required
 										style={{
 											marginTop: 15
@@ -248,8 +248,8 @@ function Todo() {
 							</center>
 							<center>
 								<Button
-									variant="contained"
-									color="secondary"
+									variant='contained'
+									color='secondary'
 									focusRipple
 									onClick={() => {
 										setModalOpen(false);
@@ -259,11 +259,11 @@ function Todo() {
 									X Close
 								</Button>
 								<Button
-									variant="contained"
+									variant='contained'
 									style={{
 										margin: 15
 									}}
-									color="primary"
+									color='primary'
 									disabled={!noteTitle || !noteContent}
 									onClick={addTodo}>
 									{isUpdate ? (
@@ -300,7 +300,7 @@ function Todo() {
 								outline: 0
 							}}>
 							<Typography
-								variant="h6"
+								variant='h6'
 								style={{
 									textAlign: 'center'
 								}}>
@@ -314,19 +314,19 @@ function Todo() {
 									<TextField
 										disabled
 										value={noteTitle}
-										onChange={(e) => setNoteTitle(e.target.value)}
+										onChange={e => setNoteTitle(e.target.value)}
 										fullWidth
-										variant="outlined"
-										label="Todo Title"
+										variant='outlined'
+										label='Todo Title'
 										required
 									/>
 									<TextField
 										disabled
 										value={noteContent}
-										onChange={(e) => setNoteContent(e.target.value)}
+										onChange={e => setNoteContent(e.target.value)}
 										fullWidth
-										variant="outlined"
-										label="Todo Contents"
+										variant='outlined'
+										label='Todo Contents'
 										required
 										style={{
 											marginTop: 15
@@ -338,8 +338,8 @@ function Todo() {
 							</center>
 							<center>
 								<Button
-									variant="contained"
-									color="secondary"
+									variant='contained'
+									color='secondary'
 									focusRipple
 									onClick={() => {
 										setViewModal(false);

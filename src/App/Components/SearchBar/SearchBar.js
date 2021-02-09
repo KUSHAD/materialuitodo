@@ -9,9 +9,8 @@ const SearchBar = ({ label, fullWidth, value, onChange, onClear }) => {
 			<Paper
 				style={{
 					display: 'flex',
-					flexDirection: 'row',
-				}}
-			>
+					flexDirection: 'row'
+				}}>
 				<Button disabled>
 					<SearchIcon />
 				</Button>
@@ -22,7 +21,7 @@ const SearchBar = ({ label, fullWidth, value, onChange, onClear }) => {
 					fullWidth={fullWidth}
 				/>
 				{!value ? null : (
-					<Button onClick={onClear} color="primary" variant="text">
+					<Button onClick={onClear} color='primary' variant='text'>
 						<CloseIcon />
 					</Button>
 				)}

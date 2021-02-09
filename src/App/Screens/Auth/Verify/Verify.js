@@ -8,7 +8,7 @@ function Verify() {
 			.then(() => {
 				console.log('successfully sent email');
 			})
-			.catch((err) => {
+			.catch(err => {
 				console.log('err ->', err);
 			});
 	};
@@ -18,36 +18,31 @@ function Verify() {
 				display: 'flex',
 				height: '90vh',
 				justifyContent: 'center',
-				alignItems: 'center',
-			}}
-		>
+				alignItems: 'center'
+			}}>
 			<Grid
 				style={{
-					width: '80%',
-				}}
-			>
+					width: '80%'
+				}}>
 				<Grid
 					style={{
 						width: '100%',
-						textAlign: 'center',
-					}}
-				>
+						textAlign: 'center'
+					}}>
 					<Paper
 						style={{
-							margin: 25,
-						}}
-					>
-						<Typography variant="h5">Verify Your Email</Typography>
-						<Typography variant="body2">
+							margin: 25
+						}}>
+						<Typography variant='h5'>Verify Your Email</Typography>
+						<Typography variant='body2'>
 							Go to your email inbox, and please verify your email.
 						</Typography>
-						<Typography variant="body2">Then refresh this page</Typography>
+						<Typography variant='body2'>Then refresh this page</Typography>
 						<center>
 							<Button
 								onClick={resendVerificationEmail}
-								color="primary"
-								variant="contained"
-							>
+								color='primary'
+								variant='contained'>
 								Re-send Verification Email
 							</Button>
 						</center>

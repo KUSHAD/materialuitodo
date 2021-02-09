@@ -37,7 +37,7 @@ import {
 } from '../../Screens/Main/FeedBack';
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
 	root: {
 		display: 'flex'
 	},
@@ -93,7 +93,7 @@ function SideNav(props) {
 		firebaseAuth
 			.signOut()
 			.then(() => console.log('success'))
-			.catch((err) => console.log('error', err));
+			.catch(err => console.log('error', err));
 	};
 
 	useEffect(() => {
@@ -101,7 +101,7 @@ function SideNav(props) {
 			.collection('users')
 			.doc(firebaseAuth.currentUser.uid)
 			.get()
-			.then((user) => {
+			.then(user => {
 				if (user.exists) {
 					let userData = user.data();
 					setFirstName(userData.firstName);
@@ -188,19 +188,19 @@ function SideNav(props) {
 				<Divider />
 				<List>
 					<ListItem>
-						<Button href="/" fullWidth>
+						<Button href='/' fullWidth>
 							<NoteOutlinedIcon />
 							Todos
 						</Button>
 					</ListItem>
 					<ListItem>
-						<Button href="/profile" fullWidth>
+						<Button href='/profile' fullWidth>
 							<AccountBoxOutlinedIcon /> Profile
 						</Button>
 					</ListItem>
 					<Divider />
 					<ListItem>
-						<Button href="/feedback" fullWidth>
+						<Button href='/feedback' fullWidth>
 							<FeedbackIcon />
 							Feedback
 						</Button>
@@ -239,17 +239,17 @@ function SideNav(props) {
 		<div className={classes.root}>
 			<AppErrorBoundary>
 				<CssBaseline />
-				<AppBar position="fixed" className={classes.appBar}>
+				<AppBar position='fixed' className={classes.appBar}>
 					<Toolbar>
 						<IconButton
-							color="inherit"
-							aria-label="open drawer"
-							edge="start"
+							color='inherit'
+							aria-label='open drawer'
+							edge='start'
 							onClick={handleDrawerToggle}
 							className={classes.menuButton}>
 							<MenuIcon />
 						</IconButton>
-						<Typography variant="h6" noWrap>
+						<Typography variant='h6' noWrap>
 							Mui-Todo
 						</Typography>
 						{supported() && !isInstalled() && (
@@ -277,16 +277,16 @@ function SideNav(props) {
 								position: 'fixed'
 							}}
 							onClick={shareApp}
-							color="inherit">
+							color='inherit'>
 							<Share />
 						</IconButton>
 					</Toolbar>
 				</AppBar>
 				<nav className={classes.drawer}>
-					<Hidden smUp implementation="css">
+					<Hidden smUp implementation='css'>
 						<Drawer
 							container={container}
-							variant="temporary"
+							variant='temporary'
 							anchor={theme.direction === 'rtl' ? 'right' : 'left'}
 							open={mobileOpen}
 							onClose={handleDrawerToggle}
@@ -299,12 +299,12 @@ function SideNav(props) {
 							{drawer}
 						</Drawer>
 					</Hidden>
-					<Hidden xsDown implementation="css">
+					<Hidden xsDown implementation='css'>
 						<Drawer
 							classes={{
 								paper: classes.drawerPaper
 							}}
-							variant="permanent"
+							variant='permanent'
 							open>
 							{drawer}
 						</Drawer>
@@ -313,9 +313,9 @@ function SideNav(props) {
 				<main className={classes.content}>
 					<div className={classes.toolbar} />
 					<BrowserRouter>
-						<Route path="/" exact component={TodoScreen} />
+						<Route path='/' exact component={TodoScreen} />
 						<Route
-							path="/profile"
+							path='/profile'
 							component={() => (
 								<ProfileScreen
 									email={email}
@@ -329,9 +329,9 @@ function SideNav(props) {
 								/>
 							)}
 						/>
-						<Route path="/feedback" component={FeedBackScreen} exact />
+						<Route path='/feedback' component={FeedBackScreen} exact />
 						<Route
-							path="/feedback/new"
+							path='/feedback/new'
 							component={() => (
 								<WriteFeedbackScreen
 									imageURL={profileImage}
@@ -344,17 +344,17 @@ function SideNav(props) {
 							exact
 						/>
 						<Route
-							path="/feedback/comments"
+							path='/feedback/comments'
 							component={CommentSectionScreen}
 							exact
 						/>
 						<Route
-							path="/feedback/bug"
+							path='/feedback/bug'
 							component={BugReportsSectionScreen}
 							exact
 						/>
 						<Route
-							path="/feedback/feature"
+							path='/feedback/feature'
 							component={FeatureRequestSectionScreen}
 							exact
 						/>
@@ -366,20 +366,20 @@ function SideNav(props) {
 					textAlign: 'center'
 				}}
 				open={shareModalOpen}>
-				<Typography variant="h6">
+				<Typography variant='h6'>
 					Sad To Say But Your Browser Doesn't Support Web Sharing
 				</Typography>
-				<Typography variant="h6">Don't Worry Click The Button Below</Typography>
-				<Typography variant="h6">
+				<Typography variant='h6'>Don't Worry Click The Button Below</Typography>
+				<Typography variant='h6'>
 					It Will Copy A Text And Then Share It With Your Friends
 				</Typography>
-				<Button onClick={shareTextCopy} variant="contained" color="primary">
+				<Button onClick={shareTextCopy} variant='contained' color='primary'>
 					Copy Text
 				</Button>
 				<Button
 					onClick={() => setShareModalOpen(false)}
-					variant="contained"
-					color="secondary">
+					variant='contained'
+					color='secondary'>
 					Close
 				</Button>
 			</Dialog>

@@ -20,7 +20,7 @@ class App extends Component {
 		};
 	}
 	componentDidMount() {
-		firebaseAuth.onAuthStateChanged((user) => {
+		firebaseAuth.onAuthStateChanged(user => {
 			if (!user) {
 				this.setState({
 					loggedIn: false,
@@ -45,7 +45,7 @@ class App extends Component {
 							justifyContent: 'center',
 							alignItems: 'center'
 						}}>
-						<CircularProgress size="20vh" color="primary" />
+						<CircularProgress size='20vh' color='primary' />
 					</div>
 				</AppErrorBoundary>
 			);
@@ -54,15 +54,15 @@ class App extends Component {
 			return (
 				<AppErrorBoundary>
 					<BrowserRouter>
-						<Route path="/signup" exact component={SignupScreen} />
-						<Route path="/login" exact component={LoginScreen} />
+						<Route path='/signup' exact component={SignupScreen} />
+						<Route path='/login' exact component={LoginScreen} />
 						<Route
-							path="/forgot-password"
+							path='/forgot-password'
 							exact
 							component={ForgotPasswordScreen}
 						/>
-						<Route path="/" render={() => <Redirect to="/login" />} />
-						<Redirect to="/login" />
+						<Route path='/' render={() => <Redirect to='/login' />} />
+						<Redirect to='/login' />
 					</BrowserRouter>
 				</AppErrorBoundary>
 			);

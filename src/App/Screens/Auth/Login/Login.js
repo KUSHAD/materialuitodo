@@ -16,12 +16,12 @@ class Login extends Component {
 		this.onLogin = this.onLogin.bind(this);
 	}
 
-	onLogin = (e) => {
+	onLogin = e => {
 		const { history } = this.props;
 		e.preventDefault();
 		firebaseAuth
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
-			.then(async (result) => {
+			.then(async result => {
 				console.log('Success!!! ->', result);
 				await firebaseAnalytics.logEvent('login', {
 					email: this.state.email
@@ -32,7 +32,7 @@ class Login extends Component {
 				});
 				if (history) history.push('/');
 			})
-			.catch((err) => {
+			.catch(err => {
 				console.log(err.message);
 				alert(err.message);
 			});
@@ -52,27 +52,27 @@ class Login extends Component {
 					<h1>Login</h1>
 					<LockOutlined />
 					<TextField
-						label="Email"
+						label='Email'
 						required
-						variant="outlined"
-						type="email"
+						variant='outlined'
+						type='email'
 						style={{
 							margin: '15px'
 						}}
 						value={this.state.email}
-						onChange={(e) => this.setState({ email: e.target.value })}
+						onChange={e => this.setState({ email: e.target.value })}
 					/>
 					<TextField
 						style={{
 							margin: '15px'
 						}}
-						label="Password"
+						label='Password'
 						required
-						variant="outlined"
-						type="password"
+						variant='outlined'
+						type='password'
 						value={this.state.password}
-						onChange={(e) => this.setState({ password: e.target.value })}
-						onPasteCapture={(e) => e.preventDefault()}
+						onChange={e => this.setState({ password: e.target.value })}
+						onPasteCapture={e => e.preventDefault()}
 					/>
 					<Button
 						onClick={this.onLogin}
@@ -80,15 +80,15 @@ class Login extends Component {
 							margin: '15px'
 						}}
 						focusRipple
-						variant="contained"
-						color="primary"
+						variant='contained'
+						color='primary'
 						disabled={!this.state.email || !this.state.password}>
 						Login
 					</Button>
-					<Button component={Link} to="/signup">
+					<Button component={Link} to='/signup'>
 						Don't Have An Account ? Signup
 					</Button>
-					<Button component={Link} to="/forgot-password">
+					<Button component={Link} to='/forgot-password'>
 						Forgot Password
 					</Button>
 				</Grid>

@@ -51,11 +51,11 @@ class Profile extends Component {
 					.then(() => {
 						console.log('success');
 					})
-					.catch((err) => {
+					.catch(err => {
 						console.log('err', err.message);
 					});
 			})
-			.catch((err) => alert('error', err.message));
+			.catch(err => alert('error', err.message));
 	};
 	onUploadPhoto = () => {
 		console.log(this.state.imgUpload);
@@ -64,10 +64,10 @@ class Profile extends Component {
 			.put(this.state.imgUpload)
 			.on(
 				'state_changed',
-				(snapshot) => {
+				snapshot => {
 					console.log(snapshot);
 				},
-				(err) => {
+				err => {
 					alert(err.message);
 					console.log(err);
 				},
@@ -76,7 +76,7 @@ class Profile extends Component {
 						.ref(firebaseAuth.currentUser.uid)
 						.child(this.state.imgUpload.name)
 						.getDownloadURL()
-						.then((url) => {
+						.then(url => {
 							firebaseFirestore
 								.collection('users')
 								.doc(firebaseAuth.currentUser.uid)
@@ -87,7 +87,7 @@ class Profile extends Component {
 									console.log('sucess');
 									window.location.reload();
 								})
-								.catch((err) => {
+								.catch(err => {
 									alert(err.message);
 									console.log('err -->', err.message);
 								});
@@ -109,11 +109,11 @@ class Profile extends Component {
 						console.log('deleted Succesfully');
 						window.location.reload();
 					})
-					.catch((err) => {
+					.catch(err => {
 						console.log('err deleting account -->', err.message);
 					});
 			})
-			.catch((err) => {
+			.catch(err => {
 				console.log('err deleting account -->', err.message);
 			});
 	};
@@ -126,7 +126,7 @@ class Profile extends Component {
 						flexDirection: 'column',
 						padding: 25
 					}}>
-					<Typography variant="h3" align="center">
+					<Typography variant='h3' align='center'>
 						Update Your Look
 					</Typography>
 					<AppErrorBoundary>
@@ -141,20 +141,20 @@ class Profile extends Component {
 									style={{
 										display: 'none'
 									}}
-									onChange={(e) => {
+									onChange={e => {
 										const image = e.target.files[0];
 										this.setState({
 											imgUpload: image
 										});
 									}}
-									accept=".jpg,.jpeg,.png,.bimp,.gif"
-									type="file"
-									ref={(fileInput) => (this.fileInput = fileInput)}
+									accept='.jpg,.jpeg,.png,.bimp,.gif'
+									type='file'
+									ref={fileInput => (this.fileInput = fileInput)}
 								/>
 								<Button
 									onClick={() => this.fileInput.click()}
-									variant="contained"
-									color="primary">
+									variant='contained'
+									color='primary'>
 									<InsertDriveFileIcon />
 									Choose File
 								</Button>
@@ -162,8 +162,8 @@ class Profile extends Component {
 									disabled={!this.state.imgUpload}
 									onClick={this.onUploadPhoto}
 									focusRipple
-									color="primary"
-									variant="contained">
+									color='primary'
+									variant='contained'>
 									<CloudUploadIcon />
 									Upload File
 								</Button>
@@ -184,35 +184,35 @@ class Profile extends Component {
 							flexDirection: 'row'
 						}}>
 						<TextField
-							label="First Name"
+							label='First Name'
 							value={this.state.firstName}
-							variant="outlined"
-							type="text"
+							variant='outlined'
+							type='text'
 							style={{
 								margin: '15px'
 							}}
-							onChange={(e) => this.setState({ firstName: e.target.value })}
+							onChange={e => this.setState({ firstName: e.target.value })}
 						/>
 						<TextField
-							label="Last Name"
+							label='Last Name'
 							value={this.state.lastName}
-							variant="outlined"
-							type="text"
+							variant='outlined'
+							type='text'
 							style={{
 								margin: '15px'
 							}}
-							onChange={(e) => this.setState({ lastName: e.target.value })}
+							onChange={e => this.setState({ lastName: e.target.value })}
 						/>
 					</Grid>
 					<TextField
-						label="Username"
+						label='Username'
 						value={this.state.userName}
-						variant="outlined"
-						type="text"
+						variant='outlined'
+						type='text'
 						style={{
 							margin: '15px'
 						}}
-						onChange={(e) =>
+						onChange={e =>
 							this.setState({
 								userName: e.target.value.trim().replace(' ', ' ')
 							})
@@ -224,62 +224,62 @@ class Profile extends Component {
 							flexDirection: 'row'
 						}}>
 						<TextField
-							label="Country"
+							label='Country'
 							value={this.state.country}
-							variant="outlined"
-							type="text"
+							variant='outlined'
+							type='text'
 							style={{
 								margin: '15px'
 							}}
-							onChange={(e) => this.setState({ country: e.target.value })}
+							onChange={e => this.setState({ country: e.target.value })}
 						/>
 						<TextField
-							label="Zip Code"
+							label='Zip Code'
 							value={this.state.zipCode}
-							variant="outlined"
-							type="text"
+							variant='outlined'
+							type='text'
 							style={{
 								margin: '15px'
 							}}
-							onChange={(e) => this.setState({ zipCode: e.target.value })}
+							onChange={e => this.setState({ zipCode: e.target.value })}
 						/>
 					</Grid>
 					<TextField
-						label="Phone Number"
+						label='Phone Number'
 						value={this.state.phoneNumber}
-						variant="outlined"
-						type="tel"
+						variant='outlined'
+						type='tel'
 						style={{
 							margin: '15px'
 						}}
 					/>
 
 					<TextField
-						label="Email"
+						label='Email'
 						value={this.state.email}
-						variant="outlined"
-						type="email"
-						onChange={(e) => this.setState({ email: e.target.value })}
+						variant='outlined'
+						type='email'
+						onChange={e => this.setState({ email: e.target.value })}
 						style={{
 							margin: '15px'
 						}}
 					/>
 
 					<Button
-						color="secondary"
-						variant="contained"
+						color='secondary'
+						variant='contained'
 						onClick={this.deleteAccount}>
 						<DeleteForeverIcon />
 						Delete Account
 					</Button>
 					<Button
 						onClick={this.onUpdateDetails}
-						color="primary"
+						color='primary'
 						style={{
 							margin: '15px'
 						}}
 						focusRipple
-						variant="contained"
+						variant='contained'
 						disabled={
 							this.state.firstName === this.props.firstName &&
 							this.state.lastName === this.props.lastName &&
@@ -292,7 +292,7 @@ class Profile extends Component {
 						<UpdateIcon />
 						Update
 					</Button>
-					<Typography variant="caption">
+					<Typography variant='caption'>
 						Please Remember to authenticate yourself Recently and commit these
 						actions within 10 mins of authenticating yourself
 					</Typography>

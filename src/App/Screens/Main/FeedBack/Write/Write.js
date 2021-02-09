@@ -18,7 +18,7 @@ import {
 	firebaseRealTimeDatabaseTimestamp
 } from '../../../../../imports';
 import { AppErrorBoundary } from '../../../../Error';
-const Write = (props) => {
+const Write = props => {
 	const [feedback, setFeedback] = useState('');
 	const [feedbackType, setFeedbackType] = useState('');
 
@@ -36,7 +36,7 @@ const Write = (props) => {
 					feedback: feedback,
 					createdAt: firebaseRealTimeDatabaseTimestamp
 				},
-				(e) => {
+				e => {
 					if (e) {
 						console.log(e.message, e.name, e.stack);
 						alert(`Error -->${e.message}`);
@@ -62,7 +62,7 @@ const Write = (props) => {
 						margin: 15,
 						flexDirection: 'column'
 					}}>
-					<Typography variant="h3">Write Your Feedback</Typography>
+					<Typography variant='h3'>Write Your Feedback</Typography>
 					<AppErrorBoundary>
 						<Grid
 							style={{
@@ -71,16 +71,16 @@ const Write = (props) => {
 							<InputLabel>Choose Type Of Feedback</InputLabel>
 							<Select
 								value={feedbackType}
-								onChange={(e) => setFeedbackType(e.target.value)}
+								onChange={e => setFeedbackType(e.target.value)}
 								fullWidth
-								placeholder="Type Of Feedback"
-								variant="outlined">
-								<MenuItem value="">
+								placeholder='Type Of Feedback'
+								variant='outlined'>
+								<MenuItem value=''>
 									<em>---Choose---</em>
 								</MenuItem>
-								<MenuItem value="comment">Comment</MenuItem>
-								<MenuItem value="bugReport">Bug Report</MenuItem>
-								<MenuItem value="featureRequest">Feature Request</MenuItem>
+								<MenuItem value='comment'>Comment</MenuItem>
+								<MenuItem value='bugReport'>Bug Report</MenuItem>
+								<MenuItem value='featureRequest'>Feature Request</MenuItem>
 							</Select>
 							<Grid
 								style={{
@@ -88,11 +88,11 @@ const Write = (props) => {
 									marginTop: 15
 								}}>
 								<TextField
-									label="Write Your Feedback"
+									label='Write Your Feedback'
 									value={feedback}
-									onChange={(e) => setFeedback(e.target.value)}
-									placeholder="Write Your Feedback"
-									variant="outlined"
+									onChange={e => setFeedback(e.target.value)}
+									placeholder='Write Your Feedback'
+									variant='outlined'
 									fullWidth
 									multiline
 									rows={5}
@@ -106,16 +106,16 @@ const Write = (props) => {
 							}}>
 							<center>
 								<Button
-									variant="contained"
-									color="secondary"
+									variant='contained'
+									color='secondary'
 									onClick={() => window.open('/feedback', '_self')}>
 									<Close /> Close
 								</Button>
 								<Button
 									onClick={submitFeedback}
 									disabled={!feedback || !feedbackType}
-									variant="contained"
-									color="primary">
+									variant='contained'
+									color='primary'>
 									<Create />
 									Add
 								</Button>

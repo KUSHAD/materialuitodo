@@ -23,11 +23,11 @@ class Comments extends Component {
 	fetchComments = () => {
 		let comments = [];
 		let filteredComments = [];
-		firebaseRealTimeDatabase.ref('comment/').on('value', (data) => {
-			data.forEach((data) => {
+		firebaseRealTimeDatabase.ref('comment/').on('value', data => {
+			data.forEach(data => {
 				comments.push(data.val());
 				for (let userUid in comments) {
-					Object.entries(comments[userUid]).map((e) => {
+					Object.entries(comments[userUid]).map(e => {
 						filteredComments.push(e[1]);
 						console.log(filteredComments);
 						this.setState({
@@ -41,11 +41,11 @@ class Comments extends Component {
 	render() {
 		return (
 			<Grid>
-				<Typography variant="h3">User Comments</Typography>
+				<Typography variant='h3'>User Comments</Typography>
 				<Grid container>
 					<List>
 						<AppErrorBoundary>
-							{this.state.userComments.map((user) => (
+							{this.state.userComments.map(user => (
 								<Grid item xs={12} key={user.createdAt}>
 									<ListItem>
 										<Paper>
@@ -60,16 +60,16 @@ class Comments extends Component {
 														alt={user.userName}
 													/>
 												</ListItemAvatar>
-												<Typography variant="body1">
+												<Typography variant='body1'>
 													Name :- {user.name}
 												</Typography>
-												<Typography variant="body1">
+												<Typography variant='body1'>
 													Email :- {user.email}
 												</Typography>
-												<Typography variant="body1">
+												<Typography variant='body1'>
 													Username :- {user.userName}
 												</Typography>
-												<Typography variant="h6">
+												<Typography variant='h6'>
 													Comment :- {user.feedback}
 												</Typography>
 											</Grid>

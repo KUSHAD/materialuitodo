@@ -26,13 +26,13 @@ class Signup extends Component {
 		this.onSignup = this.onSignup.bind(this);
 	}
 
-	onSignup = (e) => {
+	onSignup = e => {
 		const { history } = this.props;
 		e.preventDefault();
 		if (this.state.password === this.state.confirmPassword) {
 			firebaseAuth
 				.createUserWithEmailAndPassword(this.state.email, this.state.password)
-				.then((result) => {
+				.then(result => {
 					console.log(`Success !!! ->`, result);
 					const fullName = `${this.state.firstName} ${this.state.lastName}`;
 					firebaseFirestore
@@ -71,12 +71,12 @@ class Signup extends Component {
 
 							if (history) history.push('/');
 						})
-						.catch((err) => {
+						.catch(err => {
 							console.log('Error !!! ->', err.message);
 							alert(err.message);
 						});
 				})
-				.catch((err) => {
+				.catch(err => {
 					console.log('Error !!! ->', err.message);
 					alert(err.message);
 				});
@@ -103,39 +103,39 @@ class Signup extends Component {
 							flexDirection: 'row'
 						}}>
 						<TextField
-							label="First Name"
+							label='First Name'
 							required
-							variant="outlined"
-							type="text"
+							variant='outlined'
+							type='text'
 							style={{
 								margin: '15px'
 							}}
 							value={this.state.firstName}
-							onChange={(e) => this.setState({ firstName: e.target.value })}
+							onChange={e => this.setState({ firstName: e.target.value })}
 						/>
 						<TextField
-							label="Last Name"
+							label='Last Name'
 							required
-							variant="outlined"
-							type="text"
+							variant='outlined'
+							type='text'
 							style={{
 								margin: '15px'
 							}}
 							value={this.state.lastName}
-							onChange={(e) => this.setState({ lastName: e.target.value })}
+							onChange={e => this.setState({ lastName: e.target.value })}
 						/>
 					</Grid>
 
 					<TextField
-						label="User Name"
+						label='User Name'
 						required
-						variant="outlined"
-						type="text"
+						variant='outlined'
+						type='text'
 						style={{
 							margin: '15px'
 						}}
 						value={this.state.userName}
-						onChange={(e) =>
+						onChange={e =>
 							this.setState({ userName: e.target.value.replace(' ', '_') })
 						}
 					/>
@@ -144,53 +144,53 @@ class Signup extends Component {
 							flexDirection: 'row'
 						}}>
 						<TextField
-							label="Country"
+							label='Country'
 							required
 							style={{
 								margin: '15px'
 							}}
-							variant="outlined"
-							type="text"
-							onChange={(e) =>
+							variant='outlined'
+							type='text'
+							onChange={e =>
 								this.setState({ country: e.target.value.toUpperCase() })
 							}
 						/>
 						<TextField
-							label="Zip Code"
+							label='Zip Code'
 							required
 							style={{
 								margin: '15px'
 							}}
-							variant="outlined"
-							type="text"
-							onChange={(e) => this.setState({ zipCode: e.target.value })}
+							variant='outlined'
+							type='text'
+							onChange={e => this.setState({ zipCode: e.target.value })}
 						/>
 					</Grid>
 					<TextField
-						label="Phone Number"
+						label='Phone Number'
 						required
 						style={{
 							margin: '15px'
 						}}
-						variant="outlined"
-						type="tel"
-						onChange={(e) =>
+						variant='outlined'
+						type='tel'
+						onChange={e =>
 							this.setState({
 								phoneNumber: e.target.value.trim().replace(' ', '')
 							})
 						}
 					/>
 					<TextField
-						label="Email"
+						label='Email'
 						required
-						variant="outlined"
-						type="email"
+						variant='outlined'
+						type='email'
 						style={{
 							margin: '15px'
 						}}
 						value={this.state.email}
-						onChange={(e) => this.setState({ email: e.target.value })}
-						helperText="A Verification Email Will Be Sent To You"
+						onChange={e => this.setState({ email: e.target.value })}
+						helperText='A Verification Email Will Be Sent To You'
 					/>
 					<Grid
 						style={{
@@ -200,27 +200,25 @@ class Signup extends Component {
 							style={{
 								margin: '15px'
 							}}
-							label="Password"
+							label='Password'
 							required
-							variant="outlined"
-							type="password"
+							variant='outlined'
+							type='password'
 							value={this.state.password}
-							onChange={(e) => this.setState({ password: e.target.value })}
-							onPasteCapture={(e) => e.preventDefault()}
+							onChange={e => this.setState({ password: e.target.value })}
+							onPasteCapture={e => e.preventDefault()}
 						/>
 						<TextField
 							style={{
 								margin: '15px'
 							}}
-							label="Confirm Password"
+							label='Confirm Password'
 							required
-							variant="outlined"
-							type="password"
+							variant='outlined'
+							type='password'
 							value={this.state.confirmPassword}
-							onChange={(e) =>
-								this.setState({ confirmPassword: e.target.value })
-							}
-							onPasteCapture={(e) => e.preventDefault()}
+							onChange={e => this.setState({ confirmPassword: e.target.value })}
+							onPasteCapture={e => e.preventDefault()}
 						/>
 					</Grid>
 					<Button
@@ -228,8 +226,8 @@ class Signup extends Component {
 							margin: '15px'
 						}}
 						focusRipple
-						variant="contained"
-						color="primary"
+						variant='contained'
+						color='primary'
 						onClick={this.onSignup}
 						disabled={
 							!this.state.firstName ||
@@ -244,7 +242,7 @@ class Signup extends Component {
 						}>
 						Signup
 					</Button>
-					<Button component={Link} to="/login">
+					<Button component={Link} to='/login'>
 						Already Have An Account ? Login
 					</Button>
 				</Grid>

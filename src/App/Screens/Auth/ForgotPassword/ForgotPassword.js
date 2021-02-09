@@ -16,7 +16,7 @@ function ForgotPassword() {
 				});
 				history.push('/login');
 			})
-			.catch((err) => {
+			.catch(err => {
 				console.log('err', err.message);
 				alert(err.message);
 			});
@@ -31,22 +31,22 @@ function ForgotPassword() {
 				flexDirection: 'column'
 			}}>
 			<TextField
-				type="email"
+				type='email'
 				required
-				variant="outlined"
-				label="Email"
+				variant='outlined'
+				label='Email'
 				style={{
 					margin: 15
 				}}
 				value={email}
-				onChange={(e) => setEmail(e.target.value)}
-				helperText="Please Enter The Email With Which You Have The Account In Mui-Todo"
+				onChange={e => setEmail(e.target.value)}
+				helperText='Please Enter The Email With Which You Have The Account In Mui-Todo'
 			/>
 			<Button
 				disabled={!email}
 				onClick={sendPasswordResetEmail}
-				variant="contained"
-				color="primary">
+				variant='contained'
+				color='primary'>
 				Send Password Reset Email
 			</Button>
 			<Button onClick={() => history.push('/login')}>Back To Login</Button>
