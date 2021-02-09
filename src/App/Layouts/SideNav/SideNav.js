@@ -227,6 +227,18 @@ function SideNav(props) {
 					<Button onClick={shareApp} fullWidth>
 						<Share /> Share This App
 					</Button>
+					<ListItem
+						style={{
+							margin: 0,
+							bottom: 'auto',
+							// right: 20,
+							left: 'auto',
+							position: 'fixed'
+						}}>
+						<Typography variant='body2'>
+							Your Id:- {firebaseAuth.currentUser.uid}
+						</Typography>
+					</ListItem>
 				</List>
 			</AppErrorBoundary>
 		</div>
